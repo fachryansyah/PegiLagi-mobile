@@ -13,18 +13,18 @@ import {
 	Icon,
 	Text,
 } from 'native-base';
-export default class HomeScreen extends Component {
+export default class OrderScreen extends Component {
 	render() {
 		return (
 			<Container>
 				<Header>
 					<Body>
-						<Title>pegilagi</Title>
+						<Title>Pesanan</Title>
 					</Body>
 					<Right />
 				</Header>
 				<Content>
-					<Text>This is Home</Text>
+					<Text>This is Order</Text>
 				</Content>
 			</Container>
 		);
