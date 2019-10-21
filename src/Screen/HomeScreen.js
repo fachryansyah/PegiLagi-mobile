@@ -13,7 +13,7 @@ import {
   Icon,
   Text,
 } from 'native-base';
-export default class Home extends Component {
+export default class HomeScreen extends Component {
   render() {
     return ( 
       <Container>
