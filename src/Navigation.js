@@ -10,6 +10,9 @@ import SplashScreen from './Screen/SplashScreen'
 import OrderScreen from './Screen/OrderScreen'
 import InboxScreen from './Screen/InboxScreen'
 import ProfileScreen from './Screen/ProfileScreen'
+import OrderAirPlaneTicket from './Screen/Order/OrderAirplaneTicket'
+import OrderTrainTicket from './Screen/Order/OrderTrainTicket'
+import OrderHotel from './Screen/Order/OrderHotel'
 
 
 const TabNavigation = createMaterialBottomTabNavigator(
@@ -71,6 +74,15 @@ const MainNavigation = createStackNavigator(
 		Home: TabNavigation,
 		Splash: {
 			screen: SplashScreen
+		},
+		OrderAirplaneTicket: {
+			screen: OrderAirPlaneTicket
+		},
+		OrderTrainTicket: {
+			screen: OrderTrainTicket
+		},
+		OrderHotel: {
+			screen: OrderHotel
 		}
 	},
 	{

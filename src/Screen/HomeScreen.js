@@ -36,19 +36,19 @@ export default class HomeScreen extends Component {
 					<Content>
 						<ImageBackground source={require('../Assets/Images/bg-home.jpeg')} style={styles.imageBackground}>
 							<Content contentContainerStyle={styles.overlay}>
-								<TouchableOpacity onPress={() => alert('Hotel')} style={styles.buttonAction}>
+								<TouchableOpacity onPress={() => this.props.navigation.navigate('OrderHotel')} style={styles.buttonAction}>
 									<Content contentContainerStyle={styles.buttonActionOverlay}>
 										<FontAwesomeIcon style={{ color: '#f9b332' }} size={35} name={'building'} />
 									</Content>
 									<Text style={styles.buttonActionText}>HOTEL</Text>
 								</TouchableOpacity>
-								<TouchableOpacity onPress={() => alert('Pesawat')} style={styles.buttonAction}>
+								<TouchableOpacity onPress={() => this.props.navigation.navigate('OrderAirplaneTicket')} style={styles.buttonAction}>
 									<Content contentContainerStyle={styles.buttonActionOverlay}>
 										<FontAwesomeIcon style={{ color: '#f5b7b3' }} size={35} name={'plane'} />
 									</Content>
 									<Text style={styles.buttonActionText}>PESAWAT</Text>
 								</TouchableOpacity>
-								<TouchableOpacity onPress={() => alert('Kereta api')} style={styles.buttonAction}>
+								<TouchableOpacity onPress={() => this.props.navigation.navigate('OrderTrainTicket')} style={styles.buttonAction}>
 									<Content contentContainerStyle={styles.buttonActionOverlay}>
 										<FontAwesomeIcon style={{ color: '#f97432' }} size={35} name={'train'} />
 									</Content>
