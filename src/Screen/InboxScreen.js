@@ -100,7 +100,7 @@ export default class InboxScreen extends Component {
                       <Grid>
                         <Col style={styles.colInboxIcon}>
                           <View>
-                            <MaterialIcons style={[{ color: 'gray' }]} size={25} name={'brightness-percent'} />
+                            <MaterialIcons style={[{ color: '#d9d9d9' }]} size={25} name={'brightness-percent'} />
                           </View>
                         </Col>
                         <Col style={styles.colInboxText}>
