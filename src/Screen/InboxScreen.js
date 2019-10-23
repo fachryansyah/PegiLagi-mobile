@@ -11,15 +11,9 @@ import {
   Header,
   Title,
   Content,
-  Footer,
-  FooterTab,
-  Button,
-  Left,
   Right,
   Body,
-  Icon,
   Text,
-  Gird,
   Col,
   Grid
 } from 'native-base';
@@ -136,7 +130,6 @@ const styles = StyleSheet.create({
     height: 100,
     borderBottomColor: '#eee',
     borderBottomWidth: 1
-    // padding: 10
   },
   colInboxIcon: {
     backgroundColor: '#fff',
