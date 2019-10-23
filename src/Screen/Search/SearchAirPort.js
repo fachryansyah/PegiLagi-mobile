@@ -19,8 +19,9 @@ import {
     Col
 } from 'native-base'
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome'
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 
-export default class SearchStation extends Component {
+export default class SearchAirPort extends Component {
 
     constructor(props) {
         super(props)
@@ -28,18 +29,18 @@ export default class SearchStation extends Component {
             isSearch: true,
             historyStasiun: [
                 {
-                    city: 'Bandung',
-                    NameStation: 'BD - Bandung'
+                    city: 'Jakarta',
+                    NameStation: 'JKT - Semua Bandara'
                 }
             ],
             stasiun: [
                 {
-                    city: 'Bandung',
-                    NameStation: 'BD - Bandung'
+                    city: 'Jakarta',
+                    NameStation: 'JKT - Semua Bandara'
                 },
                 {
-                    city: 'Bekasi',
-                    NameStation: 'BKS - Bekasi'
+                    city: 'Surabaya',
+                    NameStation: 'SUB - Juanda International Airport'
                 },
                 {
                     city: 'Jakarta',
@@ -110,7 +111,7 @@ export default class SearchStation extends Component {
                                     <Col>
                                         <View style={styles.cardStationIcon}>
                                             <Text style={{ color: '#969696' }}>
-                                                <FontAwesomeIcons style={[{ color: '#d9d9d9' }]} size={18} name={'train'} /> Stasiun
+                                                <SimpleLineIcons style={[{ color: '#d9d9d9' }]} size={18} name={'plane'} /> Bandara
                                             </Text>
                                         </View>
                                     </Col>
@@ -139,7 +140,7 @@ export default class SearchStation extends Component {
                     <Header style={styles.header} androidStatusBarColor='#f97432' noShadow={true}>
                         <Grid>
                             <Col style={{ width: '15%' }}>
-                                <Button transparent onPress={() => this.props.navigation.navigate('OrderTrainTicket')}>
+                                <Button transparent onPress={() => this.props.navigation.navigate('OrderAirplaneTicket')}>
                                     <Left>
                                         <Icon name='arrow-back' style={{ color: '#ffff' }} />
                                     </Left>
@@ -148,8 +149,8 @@ export default class SearchStation extends Component {
                             <Col style={{ width: '70%' }}>
                                 <Input
                                     style={styles.inputSearch}
-                                    placeholder="Cari kota atau stasiun..."
-                                    placeholderTextColor="#f2d5a1" />
+                                    placeholder="Cari kota atau bandara..."
+                                    placeholderTextColor="#f2d8a3" />
                             </Col>
                             <Col style={{ width: '15%' }}>
                                 <Button transparent onPress={() => alert('oke')}>
@@ -169,7 +170,7 @@ export default class SearchStation extends Component {
                             paddingLeft: 12
                         }}>
                             <Text style={{ color: '#838383' }}>
-                                Kota atau Stasiun Populer
+                                Kota atau Bandara Populer
                             </Text>
                         </View>
                         <FlatList
@@ -186,7 +187,7 @@ export default class SearchStation extends Component {
                                             <Col>
                                                 <View style={styles.cardStationIcon}>
                                                     <Text style={{ color: '#969696' }}>
-                                                        <FontAwesomeIcons style={[{ color: '#d9d9d9' }]} size={18} name={'train'} /> Stasiun
+                                                        <SimpleLineIcons style={[{ color: '#d9d9d9' }]} size={18} name={'plane'} /> Bandara
                                                     </Text>
                                                 </View>
                                             </Col>
@@ -204,7 +205,7 @@ export default class SearchStation extends Component {
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor: '#ffa500',
+        backgroundColor: '#fb9d7b',
         paddingTop: 7,
         paddingBottom: 7
     },
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     inputSearch: {
-        backgroundColor: '#e6ad45',
+        backgroundColor: '#e28d6e',
         borderRadius: 5,
         color: '#ffff'
     },

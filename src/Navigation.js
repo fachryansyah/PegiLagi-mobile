@@ -15,6 +15,7 @@ import OrderTrainTicket from './Screen/Order/OrderTrainTicket'
 import OrderHotel from './Screen/Order/OrderHotel'
 import LoginScreen from './Screen/LoginScreen'
 import SearchStation from './Screen/Search/SearchStation'
+import SearchAirPort from './Screen/Search/SearchAirPort'
 
 
 const TabNavigation = createMaterialBottomTabNavigator(
@@ -91,6 +92,9 @@ const MainNavigation = createStackNavigator(
     },
 		SearchStation: {
 			screen: SearchStation
+		},
+		SearchAirPort: {
+			screen: SearchAirPort
 		}
 	},
 	{
