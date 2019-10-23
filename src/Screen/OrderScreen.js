@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, FlatList, View, Image } from 'react-native'
+import { StyleSheet, FlatList, View, Image, Dimensions } from 'react-native'
 import {
 	Container,
 	Header,
@@ -16,12 +16,15 @@ import {
 import Dash from 'react-native-dash'
 import IoniconsIcon from 'react-native-vector-icons/Ionicons'
 import FontistoIcon from 'react-native-vector-icons/Fontisto'
+
+const SCREEN_HEIGHT = Dimensions.get('window').height
+
 export default class OrderScreen extends Component {
 
 	constructor(props) {
 		super(props)
 		this.state = {
-			isLogin: true,
+			isLogin: false,
 			booking: [
 				{
 					order_no: 'ASJYR346J235GGH',
@@ -131,12 +134,12 @@ export default class OrderScreen extends Component {
 
 	__renderNotLogin() {
 		return (
-			<View style={{ backgroundColor: '#fafafa' }}>
-				<View style={{ alignItems: 'center', justifyContent: 'center' }}>
+			<View style={{ height: '100%', justifyContent: 'center', paddingHorizontal: 20, backgroundColor: '#fafafa' }}>
+				<View style={{ alignItems: 'center' }}>
 					<Image style={{ width: 60, height: 60 }} source={require('../Assets/Images/bg-no-login-order.jpg')} />
-					<Text style={{ fontWeight: 'bold', fontSize: 21, color: '#4d4d4d' }}>Masuk dulu yuk!</Text>
-					<Text style={{ color: '#4d4d4d', textAlign: 'center' }}>Masuk atau Daftar sekarang untuk akses mudah melihat pesanan Anda di sini.</Text>
-					<View style={{ flex: 1, flexDirection: 'row' }}>
+					<Text style={{ fontWeight: 'bold', fontSize: 21, color: '#4d4d4d', marginTop: 12 }}>Masuk dulu yuk!</Text>
+					<Text style={{ marginTop: 12, color: '#4d4d4d', textAlign: 'center' }}>Masuk atau Daftar sekarang untuk akses mudah melihat pesanan Anda di sini.</Text>
+					<View style={{ marginTop: 12, flex: 1, flexDirection: 'row' }}>
 						<View style={{ flex: 1, }}>
 							<Button style={styles.buttonLogin} ><Text style={{ color: '#f97432' }} >LOGIN</Text></Button>
 						</View>
@@ -170,7 +173,9 @@ export default class OrderScreen extends Component {
 							}
 							activeTabStyle
 						>
-							{this.state.isLogin ? this.__renderLogin() : this.__renderNotLogin()}
+							<View style={{ height: SCREEN_HEIGHT * 0.71 }}>
+								{this.state.isLogin ? this.__renderLogin() : this.__renderNotLogin()}
+							</View>
 						</Tab>
 						<Tab
 							heading={
