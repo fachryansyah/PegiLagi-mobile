@@ -16,7 +16,8 @@ import OrderHotel from './Screen/Order/OrderHotel'
 import LoginScreen from './Screen/LoginScreen'
 import RegisterScreen from './Screen/RegisterScreen'
 import SearchStation from './Screen/Search/SearchStation'
-import SearchAirPort from './Screen/Search/SearchAirPort'
+import SearchAirportTo from './Screen/Search/SearchAirportTo'
+import SearchAirportFrom from './Screen/Search/SearchAirportFrom'
 
 
 const TabNavigation = createMaterialBottomTabNavigator(
@@ -97,9 +98,12 @@ const MainNavigation = createStackNavigator(
 		SearchStation: {
 			screen: SearchStation
 		},
-		SearchAirPort: {
-			screen: SearchAirPort
-		}
+		SearchAirPortTo: {
+			screen: SearchAirportTo
+		},
+		SearchAirPortFrom: {
+			screen: SearchAirportFrom
+		},
 	},
 	{
 		headerMode: 'none',

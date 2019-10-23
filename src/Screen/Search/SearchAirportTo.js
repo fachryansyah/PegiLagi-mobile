@@ -4,6 +4,7 @@ import {
     StyleSheet,
     TouchableOpacity,
     FlatList,
+    Dimensions
 } from 'react-native'
 import {
     Text,
@@ -16,57 +17,107 @@ import {
     Icon,
     Input,
     Grid,
+    Spinner,
     Col
 } from 'native-base'
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
+import Http from '../../Helpers/Http'
 
-export default class SearchAirPort extends Component {
+const SCREEN_HEIGHT = Dimensions.get('window').height
+
+export default class SearchAirportTo extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
             isSearch: true,
+            isLoading: true,
             historyStasiun: [
                 {
                     city: 'Jakarta',
                     NameStation: 'JKT - Semua Bandara'
                 }
             ],
-            stasiun: [
-                {
-                    city: 'Jakarta',
-                    NameStation: 'JKT - Semua Bandara'
-                },
-                {
-                    city: 'Surabaya',
-                    NameStation: 'SUB - Juanda International Airport'
-                },
-                {
-                    city: 'Jakarta',
-                    NameStation: 'CKG - Cakung'
-                },
-                {
-                    city: 'Jakarta',
-                    NameStation: 'GMR - Gambir'
-                },
-                {
-                    city: 'Bandung',
-                    NameStation: 'BD - Bandung'
-                },
-                {
-                    city: 'Bekasi',
-                    NameStation: 'BKS - Bekasi'
-                },
-                {
-                    city: 'Jakarta',
-                    NameStation: 'CKG - Cakung'
-                },
-                {
-                    city: 'Jakarta',
-                    NameStation: 'GMR - Gambir'
-                }
-            ]
+            airports: []
+        }
+    }
+
+    componentDidMount(){
+        this.getAirportData()
+    }
+
+    async getAirportData(){
+        await Http.get('/airport')
+        .then((res) => {
+            if(res.data.status == 200){
+                this.setState({
+                    airports: res.data.data,
+                    isLoading: false
+                })
+            }
+        })
+        .catch((err) => {
+            console.log(err.message)
+        })
+    }
+
+    onSelected(item){
+        this.props.navigation.navigate('OrderAirplaneTicket', {
+            to_airport_id : item.id,
+            to_airport_city: item.city,
+            to_airport_code: item.code_name
+        })
+    }
+
+    __renderListAirport(){
+        if(this.state.isLoading){
+            return(
+                <>
+                    <View style={{ flex: 1, height: SCREEN_HEIGHT * 0.9, justifyContent: 'center' }}>
+                        <Spinner color='red' />
+                    </View>
+                </>
+            )
+        }else{
+            return(
+                <>
+                    {this.state.isSearch ? this.__renderSearch() : this.__renderNotSearch()}
+                    <View style={{
+                        backgroundColor: '#fafafa',
+                        height: 60,
+                        justifyContent: 'center',
+                        paddingLeft: 12
+                    }}>
+                        <Text style={{ color: '#838383' }}>
+                            Kota atau Bandara Populer
+                        </Text>
+                    </View>
+                    <FlatList
+                        data={this.state.airports}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item, key }) => (
+                            <TouchableOpacity onPress={() => this.onSelected(item)} key={key}>
+                                <Grid style={styles.cardStation}>
+                                    <Col>
+                                        <Text style={{ color: '#4c4b3f' }}>{item.city}</Text>
+                                        <Text style={{ color: '#838383', fontSize: 15 }}>{item.name}</Text>
+                                    </Col>
+                                    <Right>
+                                        <Col>
+                                            <View style={styles.cardStationIcon}>
+                                                <Text style={{ color: '#969696' }}>
+                                                    <SimpleLineIcons style={[{ color: '#d9d9d9' }]} size={18} name={'plane'} /> Bandara
+                                                </Text>
+                                            </View>
+                                        </Col>
+                                    </Right>
+                                </Grid>
+                            </TouchableOpacity>
+                        )}
+                    />
+                </>
+            )
         }
     }
 
@@ -162,40 +213,7 @@ export default class SearchAirPort extends Component {
                         </Grid>
                     </Header>
                     <Content>
-                        {this.state.isSearch ? this.__renderSearch() : this.__renderNotSearch()}
-                        <View style={{
-                            backgroundColor: '#fafafa',
-                            height: 60,
-                            justifyContent: 'center',
-                            paddingLeft: 12
-                        }}>
-                            <Text style={{ color: '#838383' }}>
-                                Kota atau Bandara Populer
-                            </Text>
-                        </View>
-                        <FlatList
-                            data={this.state.stasiun}
-                            keyExtractor={(item) => item.id}
-                            renderItem={({ item, key }) => (
-                                <TouchableOpacity onPress={() => alert('Mau kemana!')}>
-                                    <Grid style={styles.cardStation}>
-                                        <Col>
-                                            <Text style={{ color: '#4c4b3f' }}>{item.city}</Text>
-                                            <Text style={{ color: '#838383', fontSize: 15 }}>{item.NameStation}</Text>
-                                        </Col>
-                                        <Right>
-                                            <Col>
-                                                <View style={styles.cardStationIcon}>
-                                                    <Text style={{ color: '#969696' }}>
-                                                        <SimpleLineIcons style={[{ color: '#d9d9d9' }]} size={18} name={'plane'} /> Bandara
-                                                    </Text>
-                                                </View>
-                                            </Col>
-                                        </Right>
-                                    </Grid>
-                                </TouchableOpacity>
-                            )}
-                        />
+                        {this.__renderListAirport()}
                     </Content>
                 </Container>
             </>
