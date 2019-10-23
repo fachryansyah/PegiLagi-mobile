@@ -13,6 +13,7 @@ import ProfileScreen from './Screen/ProfileScreen'
 import OrderAirPlaneTicket from './Screen/Order/OrderAirplaneTicket'
 import OrderTrainTicket from './Screen/Order/OrderTrainTicket'
 import OrderHotel from './Screen/Order/OrderHotel'
+import LoginScreen from './Screen/LoginScreen'
 import SearchStation from './Screen/Search/SearchStation'
 
 
@@ -85,6 +86,9 @@ const MainNavigation = createStackNavigator(
 		OrderHotel: {
 			screen: OrderHotel
 		},
+		Login: {
+			screen: LoginScreen
+    },
 		SearchStation: {
 			screen: SearchStation
 		}
