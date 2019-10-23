@@ -21,6 +21,7 @@ import {
     Footer,
     Icon
 } from 'native-base'
+import { NavigationEvents } from 'react-navigation'
 import Dash from 'react-native-dash'
 
 export default class OrderAirPlaneTicket extends Component {
@@ -28,13 +29,38 @@ export default class OrderAirPlaneTicket extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isRoundTrip: false
+            isRoundTrip: false,
+            from_airport_id: '',
+            from_airport_city: 'Jakarta',
+            from_airport_code: 'JKT',
+            to_airport_id: '',
+            to_airport_city: 'Bali',
+            to_airport_code: 'BLI',
+            departure_time: ''
         }
+    }
+
+    componentDidMount(){
+        
+    }
+
+    async getParam(){
+        await this.setState({
+            from_airport_id: this.props.navigation.getParam('from_airport_id', this.state.from_airport_id),
+            from_airport_city: this.props.navigation.getParam('from_airport_city', this.state.from_airport_city),
+            from_airport_code: this.props.navigation.getParam('from_airport_code', this.state.from_airport_code),
+            to_airport_id: this.props.navigation.getParam('to_airport_id', this.state.to_airport_id),
+            to_airport_city: this.props.navigation.getParam('to_airport_city', this.state.to_airport_city),
+            to_airport_code: this.props.navigation.getParam('to_airport_code', this.state.to_airport_code)
+        })
     }
 
     render() {
         return (
             <>
+                <NavigationEvents
+                    onDidFocus={payload => this.getParam()}
+                />
                 <Container style={styles.body}>
                     <Header style={styles.header} androidStatusBarColor='#f97432' noShadow={true}>
                         <Left>
@@ -68,17 +94,19 @@ export default class OrderAirPlaneTicket extends Component {
                             <View style={{ padding: 12 }}>
                                 <View style={{ flexDirection: 'row' }}>
                                     <Left style={{ alignItems: 'center' }}>
-                                        <TouchableOpacity style={styles.btnRegister} onPress={() => this.props.navigation.navigate('SearchAirPort')}>
+                                        <TouchableOpacity style={styles.btnRegister} onPress={() => this.props.navigation.navigate('SearchAirPortFrom')}>
                                             <Text style={styles.textTitle}>Asal</Text>
-                                            <Text style={styles.textCodeName}>GBR</Text>
-                                            <Text style={styles.textValue}>Gambir</Text>
+                                            <Text style={styles.textCodeName}>{this.state.from_airport_code}</Text>
+                                            <Text style={styles.textValue}>{this.state.from_airport_city}</Text>
                                         </TouchableOpacity>
                                     </Left>
                                     <Icon style={{ color: '#FFA40C', alignSelf: 'center' }} size={20} type='FontAwesome5' name='exchange-alt' />
                                     <Right style={{ alignItems: 'center' }}>
-                                        <Text style={styles.textTitle}>Asal</Text>
-                                        <Text style={styles.textCodeName}>GBR</Text>
-                                        <Text style={styles.textValue}>Gambir</Text>
+                                        <TouchableOpacity onPress={() => this.props.navigation.navigate('SearchAirPortTo')}>
+                                            <Text style={styles.textTitle}>Tujuan</Text>
+                                            <Text style={styles.textCodeName}>{this.state.to_airport_code}</Text>
+                                            <Text style={styles.textValue}>{this.state.to_airport_city}</Text>
+                                        </TouchableOpacity>
                                     </Right>
                                 </View>
                             </View>
