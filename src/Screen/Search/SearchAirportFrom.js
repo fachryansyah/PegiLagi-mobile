@@ -43,45 +43,45 @@ export default class SearchAirportFrom extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getAirportData()
     }
 
-    async getAirportData(){
+    async getAirportData() {
         await Http.get('/airport')
-        .then((res) => {
-            if(res.data.status == 200){
-                this.setState({
-                    airports: res.data.data,
-                    isLoading: false
-                })
-            }
-        })
-        .catch((err) => {
-            console.log(err.message)
-        })
+            .then((res) => {
+                if (res.data.status == 200) {
+                    this.setState({
+                        airports: res.data.data,
+                        isLoading: false
+                    })
+                }
+            })
+            .catch((err) => {
+                console.log(err.message)
+            })
     }
 
-    async onSelected(item){
+    async onSelected(item) {
         console.log(item)
         await this.props.navigation.navigate('OrderAirplaneTicket', {
-            from_airport_id : item.id,
+            from_airport_id: item.id,
             from_airport_city: item.city,
             from_airport_code: item.code_name
         })
     }
 
-    __renderListAirport(){
-        if(this.state.isLoading){
-            return(
+    __renderListAirport() {
+        if (this.state.isLoading) {
+            return (
                 <>
                     <View style={{ flex: 1, height: SCREEN_HEIGHT * 0.9, justifyContent: 'center' }}>
                         <Spinner color='red' />
                     </View>
                 </>
             )
-        }else{
-            return(
+        } else {
+            return (
                 <>
                     {this.state.isSearch ? this.__renderSearch() : this.__renderNotSearch()}
                     <View style={{
@@ -102,7 +102,7 @@ export default class SearchAirportFrom extends Component {
                                 <Grid style={styles.cardStation}>
                                     <Col>
                                         <Text style={{ color: '#4c4b3f' }}>{item.city}</Text>
-                                        <Text style={{ color: '#838383', fontSize: 15 }}>{item.name}</Text>
+                                        <Text style={{ color: '#838383', fontSize: 15 }}>{item.code_name} - {item.city}</Text>
                                     </Col>
                                     <Right>
                                         <Col>
