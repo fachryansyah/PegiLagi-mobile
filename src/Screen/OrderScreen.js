@@ -141,10 +141,10 @@ export default class OrderScreen extends Component {
 					<Text style={{ marginTop: 12, color: '#4d4d4d', textAlign: 'center' }}>Masuk atau Daftar sekarang untuk akses mudah melihat pesanan Anda di sini.</Text>
 					<View style={{ marginTop: 12, flex: 1, flexDirection: 'row' }}>
 						<View style={{ flex: 1, }}>
-							<Button style={styles.buttonLogin} ><Text style={{ color: '#f97432' }} >LOGIN</Text></Button>
+							<Button style={styles.buttonLogin} onPress={()=> this.props.navigation.navigate("Login")}><Text style={{ color: '#f97432' }} >LOGIN</Text></Button>
 						</View>
 						<View style={{ flex: 1, }}>
-							<Button style={styles.buttonRegister}><Text>REGISTER</Text></Button>
+							<Button style={styles.buttonRegister} onPress={()=> alert('login dong')}><Text>REGISTER</Text></Button>
 						</View>
 					</View>
 				</View>

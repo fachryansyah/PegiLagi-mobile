@@ -13,6 +13,7 @@ import ProfileScreen from './Screen/ProfileScreen'
 import OrderAirPlaneTicket from './Screen/Order/OrderAirplaneTicket'
 import OrderTrainTicket from './Screen/Order/OrderTrainTicket'
 import OrderHotel from './Screen/Order/OrderHotel'
+import LoginScreen from './Screen/LoginScreen'
 
 
 const TabNavigation = createMaterialBottomTabNavigator(
@@ -83,6 +84,9 @@ const MainNavigation = createStackNavigator(
 		},
 		OrderHotel: {
 			screen: OrderHotel
+		},
+		Login: {
+			screen: LoginScreen
 		}
 	},
 	{
