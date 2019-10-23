@@ -14,6 +14,7 @@ import OrderAirPlaneTicket from './Screen/Order/OrderAirplaneTicket'
 import OrderTrainTicket from './Screen/Order/OrderTrainTicket'
 import OrderHotel from './Screen/Order/OrderHotel'
 import LoginScreen from './Screen/LoginScreen'
+import RegisterScreen from './Screen/RegisterScreen'
 import SearchStation from './Screen/Search/SearchStation'
 import SearchAirportTo from './Screen/Search/SearchAirportTo'
 import SearchAirportFrom from './Screen/Search/SearchAirportFrom'
@@ -90,7 +91,10 @@ const MainNavigation = createStackNavigator(
 		},
 		Login: {
 			screen: LoginScreen
-    	},
+		},
+		Register: {
+			screen: RegisterScreen
+		},
 		SearchStation: {
 			screen: SearchStation
 		},
