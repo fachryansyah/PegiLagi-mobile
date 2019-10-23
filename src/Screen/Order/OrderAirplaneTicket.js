@@ -3,7 +3,8 @@ import {
     View,
     StyleSheet,
     Switch,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native'
 import {
     Text,
@@ -67,9 +68,11 @@ export default class OrderAirPlaneTicket extends Component {
                             <View style={{ padding: 12 }}>
                                 <View style={{ flexDirection: 'row' }}>
                                     <Left style={{ alignItems: 'center' }}>
-                                        <Text style={styles.textTitle}>Asal</Text>
-                                        <Text style={styles.textCodeName}>GBR</Text>
-                                        <Text style={styles.textValue}>Gambir</Text>
+                                        <TouchableOpacity style={styles.btnRegister} onPress={() => this.props.navigation.navigate('SearchAirPort')}>
+                                            <Text style={styles.textTitle}>Asal</Text>
+                                            <Text style={styles.textCodeName}>GBR</Text>
+                                            <Text style={styles.textValue}>Gambir</Text>
+                                        </TouchableOpacity>
                                     </Left>
                                     <Icon style={{ color: '#FFA40C', alignSelf: 'center' }} size={20} type='FontAwesome5' name='exchange-alt' />
                                     <Right style={{ alignItems: 'center' }}>
