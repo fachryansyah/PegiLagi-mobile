@@ -40,11 +40,11 @@ export default class OrderAirPlaneTicket extends Component {
         }
     }
 
-    componentDidMount(){
-        
+    componentDidMount() {
+
     }
 
-    async getParam(){
+    async getParam() {
         await this.setState({
             from_airport_id: this.props.navigation.getParam('from_airport_id', this.state.from_airport_id),
             from_airport_city: this.props.navigation.getParam('from_airport_city', this.state.from_airport_city),
@@ -128,7 +128,7 @@ export default class OrderAirPlaneTicket extends Component {
                             <Dash style={{ width: '99%', height: 1 }} dashColor='#d9d9d9' />
 
                             <View style={{ padding: 12, alignItems: 'center' }}>
-                                <Button full style={{ alignItems: 'center', backgroundColor: '#FF681B', borderRadius: 6 }}>
+                                <Button full style={{ alignItems: 'center', backgroundColor: '#FF681B', borderRadius: 6 }} onPress={() => this.props.navigation.navigate('ListAirplaneTicket')}>
                                     <Text>CARI TIKET</Text>
                                 </Button>
                             </View>
