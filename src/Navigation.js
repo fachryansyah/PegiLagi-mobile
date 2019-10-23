@@ -4,7 +4,7 @@ import { createBottomTabNavigator, createAppContainer } from 'react-navigation'
 import IoniconsIcon from 'react-native-vector-icons/Ionicons'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 import React from 'react'
-import {View} from 'react-native'
+import { View } from 'react-native'
 import HomeScreen from './Screen/HomeScreen'
 import SplashScreen from './Screen/SplashScreen'
 import OrderScreen from './Screen/OrderScreen'
@@ -13,53 +13,54 @@ import ProfileScreen from './Screen/ProfileScreen'
 import OrderAirPlaneTicket from './Screen/Order/OrderAirplaneTicket'
 import OrderTrainTicket from './Screen/Order/OrderTrainTicket'
 import OrderHotel from './Screen/Order/OrderHotel'
+import SearchStation from './Screen/Search/SearchStation'
 
 
 const TabNavigation = createMaterialBottomTabNavigator(
 	{
 		Home: {
 			screen: HomeScreen,
-			navigationOptions:{  
-                tabBarLabel:'Home',  
-                tabBarIcon: ({ tintColor }) => (  
-                    <View>  
-                        <FeatherIcon style={[{color: tintColor}]} size={25} name={'home'}/>  
+			navigationOptions: {
+				tabBarLabel: 'Home',
+				tabBarIcon: ({ tintColor }) => (
+					<View>
+						<FeatherIcon style={[{ color: tintColor }]} size={25} name={'home'} />
 					</View>
 				),
-            } 
+			}
 		},
 		Order: {
 			screen: OrderScreen,
-			navigationOptions:{  
-                tabBarLabel:'Pesanan',  
-                tabBarIcon: ({ tintColor }) => (  
-                    <View>  
-                        <IoniconsIcon style={[{color: tintColor}]} size={25} name={'ios-list-box'}/>  
+			navigationOptions: {
+				tabBarLabel: 'Pesanan',
+				tabBarIcon: ({ tintColor }) => (
+					<View>
+						<IoniconsIcon style={[{ color: tintColor }]} size={25} name={'ios-list-box'} />
 					</View>
 				),
-            }  
+			}
 		},
 		Inbox: {
 			screen: InboxScreen,
-			navigationOptions:{  
-                tabBarLabel:'Inbox',  
-                tabBarIcon: ({ tintColor }) => (  
-                    <View>  
-                        <IoniconsIcon style={[{color: tintColor}]} size={25} name={'md-mail'}/>  
+			navigationOptions: {
+				tabBarLabel: 'Inbox',
+				tabBarIcon: ({ tintColor }) => (
+					<View>
+						<IoniconsIcon style={[{ color: tintColor }]} size={25} name={'md-mail'} />
 					</View>
 				),
-            }
+			}
 		},
 		Profile: {
 			screen: ProfileScreen,
-			navigationOptions:{  
-                tabBarLabel:'Profil',  
-                tabBarIcon: ({ tintColor }) => (  
-                    <View>  
-                        <FeatherIcon style={[{color: tintColor}]} size={25} name={'user'}/>  
+			navigationOptions: {
+				tabBarLabel: 'Profil',
+				tabBarIcon: ({ tintColor }) => (
+					<View>
+						<FeatherIcon style={[{ color: tintColor }]} size={25} name={'user'} />
 					</View>
 				),
-            }
+			}
 		}
 	},
 	{
@@ -83,6 +84,9 @@ const MainNavigation = createStackNavigator(
 		},
 		OrderHotel: {
 			screen: OrderHotel
+		},
+		SearchStation: {
+			screen: SearchStation
 		}
 	},
 	{
