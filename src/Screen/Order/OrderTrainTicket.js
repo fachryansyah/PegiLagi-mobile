@@ -37,7 +37,7 @@ export default class OrderTrainTicket extends Component {
                 <Container style={styles.body}>
                     <Header style={styles.header} androidStatusBarColor='#f97432' noShadow={true}>
                         <Left>
-                            <Button transparent onPress={() => alert('oke')}>
+                            <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
                                 <Icon name='arrow-back' />
                             </Button>
                         </Left>
@@ -120,11 +120,11 @@ export default class OrderTrainTicket extends Component {
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor: '#FFA900'
+        backgroundColor: '#FFA500'
     },
     body: {
         flex: 1,
-        backgroundColor: '#FFA900'
+        backgroundColor: '#FFA500'
     },
     trainImage: {
         width: '100%',
