@@ -182,7 +182,7 @@ export default class ListAirplaneTicket extends Component {
                             data={this.state.listAirplaneTicket}
                             keyExtractor={(item) => item.id}
                             renderItem={({ item, key }) => (
-                                <TouchableOpacity onPress={() => alert('Pesan Tiket Garuda!')}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('BookingTicketAirPlane')}>
                                     <Card style={styles.cardListAirplaneTicket}>
                                         <Grid>
                                             <Col style={{ width: '15%' }}>
