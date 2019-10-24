@@ -262,7 +262,7 @@ export default class ListTrainTicket extends Component {
                 <View style={styles.footer}>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={styles.colFooter}>
-                            <TouchableOpacity onPress={() => alert('Filter!')}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate("FilterTrainTicket")}>
                                 <View style={{ flexDirection: 'row', paddingTop: 5 }}>
                                     <MaterialCommunityIcons style={[{ color: '#898989' }]} size={23} name={'format-list-bulleted'} />
                                     <Text style={{ marginLeft: 7, color: '#4d4f44' }}>Filter</Text>
