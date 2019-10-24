@@ -121,23 +121,22 @@ export default class BookingTicketAirPlane extends Component {
                             </Item>
                         </View>
                         <Text style={{ color: '#4d4f44', fontSize: 18, paddingVertical: 10, paddingHorizontal: 15 }}>Data Penumpang</Text>
-                        <View style={{ backgroundColor: '#ffff', padding: 20, marginBottom: 25 }}>
-                            <Grid>
-                                <Col style={{ width: '15%' }}>
-                                    <Feather style={[{ color: '#7f7f7f' }]} size={27} name={'user'} />
-                                </Col>
-                                <Col style={{ width: '75%' }}>
-                                    <Text style={{ color: '#4d4f44' }}>Isi data penumpang1</Text>
-                                    <Text style={{ color: '#898989' }}>Dewasa</Text>
-                                </Col>
-                                <Col style={styles.colIconRight}>
-                                    <Button
-                                        transparent onPress={() => alert('Data penumpang!')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('PassengerDataAirplane')}>
+                            <View style={{ backgroundColor: '#ffff', padding: 20, marginBottom: 25 }}>
+                                <Grid>
+                                    <Col style={{ width: '15%' }}>
+                                        <Feather style={[{ color: '#7f7f7f' }]} size={27} name={'user'} />
+                                    </Col>
+                                    <Col style={{ width: '75%' }}>
+                                        <Text style={{ color: '#4d4f44' }}>Isi data penumpang1</Text>
+                                        <Text style={{ color: '#898989' }}>Dewasa</Text>
+                                    </Col>
+                                    <Col style={styles.colIconRight}>
                                         <Feather style={{ color: '#f97432' }} size={25} name={'arrow-right'} />
-                                    </Button>
-                                </Col>
-                            </Grid>
-                        </View>
+                                    </Col>
+                                </Grid>
+                            </View>
+                        </TouchableOpacity>
                         <View style={{ backgroundColor: '#f5fafd', padding: 20 }}>
                             <Grid>
                                 <Col style={{ width: '15%' }}>

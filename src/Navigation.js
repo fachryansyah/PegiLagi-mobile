@@ -25,6 +25,7 @@ import ListTrainTicket from './Screen/List/ListTrainTicket'
 import BookingTicketAirPlane from './Screen/Booking/BookingTicketAirPlane'
 import BookingTicketTrain from './Screen/Booking/BookingTicketTrain'
 import PassengerDataTrain from './Screen/PassengerData/PassengerDataTrain'
+import PassengerDataAirplane from './Screen/PassengerData/PassengerDataAirplane'
 
 
 const TabNavigation = createMaterialBottomTabNavigator(
@@ -131,6 +132,9 @@ const MainNavigation = createStackNavigator(
 		},
 		PassengerDataTrain: {
 			screen: PassengerDataTrain
+		},
+		PassengerDataAirplane: {
+			screen: PassengerDataAirplane
 		},
 	},
 	{
