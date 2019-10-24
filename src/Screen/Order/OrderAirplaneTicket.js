@@ -26,6 +26,7 @@ import { NavigationEvents } from 'react-navigation'
 import Dash from 'react-native-dash'
 import Modal from 'react-native-modalbox'
 import { Col, Row, Grid } from 'react-native-easy-grid'
+import Moment from 'moment-timezone'
 import ScrollPicker from 'react-native-wheel-scroll-picker'
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
@@ -74,11 +75,18 @@ export default class OrderAirPlaneTicket extends Component {
         })
     }
 
+    gotoSearchAirport(){
+        this.props.navigation.navigate('ListAirplaneTicket',{
+            from_airport_id: this.state.from_airport_id,
+            to_airport_id: this.state.to_airport_id,
+            departure_time: this.state.departure_time
+        })
+    }
+
     setDate(date) {
         this.setState({
-            departure_time: date
+            departure_time: Moment.tz(date, 'Asia/Jakarta').format('YYYY-M-D')
         })
-        console.log(this.state.departure_time)
     }
 
     setModalVisible(visible) {
@@ -234,9 +242,9 @@ export default class OrderAirPlaneTicket extends Component {
                                 <Text style={styles.textTitle}>Berangkat</Text>
                                 {/* <Text style={styles.textValue}>Sel, 22 Okt 19</Text> */}
                                 <DatePicker
-                                    defaultDate={new Date(2018, 4, 4)}
-                                    minimumDate={new Date(2018, 1, 1)}
-                                    maximumDate={new Date(2018, 12, 31)}
+                                    defaultDate={new Date()}
+                                    minimumDate={new Date()}
+                                    maximumDate={new Date(2019, 11, 30)}
                                     locale={"id"}
                                     timeZoneOffsetInMinutes={undefined}
                                     modalTransparent={false}
@@ -262,7 +270,7 @@ export default class OrderAirPlaneTicket extends Component {
                             <Dash style={{ width: '99%', height: 1 }} dashColor='#d9d9d9' />
 
                             <View style={{ padding: 12, alignItems: 'center' }}>
-                                <Button full style={{ alignItems: 'center', backgroundColor: '#FF681B', borderRadius: 6 }} onPress={() => this.props.navigation.navigate('ListAirplaneTicket')}>
+                                <Button full style={{ alignItems: 'center', backgroundColor: '#FF681B', borderRadius: 6 }} onPress={() => this.gotoSearchAirport()}>
                                     <Text>CARI TIKET</Text>
                                 </Button>
                             </View>
