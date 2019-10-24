@@ -19,6 +19,7 @@ import SearchStation from './Screen/Search/SearchStation'
 import SearchAirportTo from './Screen/Search/SearchAirportTo'
 import SearchAirportFrom from './Screen/Search/SearchAirportFrom'
 import FilterAirplaneTicket from "./Screen/Filter/FilterAirplaneTicket"
+import FilterTrainTicket from "./Screen/Filter/FilterTrainTicket"
 import ListAirplaneTicket from './Screen/List/ListAirplaneTicket'
 import ListTrainTicket from './Screen/List/ListTrainTicket'
 
@@ -109,7 +110,10 @@ const MainNavigation = createStackNavigator(
 		},
 		FilterAirplaneTicket: {
 			screen: FilterAirplaneTicket
-    },
+		},
+		FilterTrainTicket: {
+			screen: FilterTrainTicket
+		},
 		ListAirplaneTicket: {
 			screen: ListAirplaneTicket
 		},
