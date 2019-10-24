@@ -206,9 +206,7 @@ export default class SearchAirportFrom extends Component {
                             </Col>
                             <Col style={{ width: '15%' }}>
                                 <Button transparent onPress={() => alert('oke')}>
-                                    <Button transparent onPress={() => alert('oke')}>
-                                        <FontAwesomeIcons style={[{ color: '#d9d9d9' }]} size={25} name={'search'} />
-                                    </Button>
+                                    <FontAwesomeIcons style={[{ color: '#d9d9d9' }]} size={25} name={'search'} />
                                 </Button>
                             </Col>
                         </Grid>

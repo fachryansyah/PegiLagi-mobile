@@ -11,14 +11,13 @@ import {
     Container,
     Content,
     Card,
-    CardItem,
     Header,
     Title,
     Button,
     Left,
     Right,
     Body,
-    Footer,
+    DatePicker,
     Icon
 } from 'native-base'
 import { NavigationEvents } from 'react-navigation'
@@ -36,15 +35,15 @@ export default class OrderAirPlaneTicket extends Component {
             to_airport_id: '',
             to_airport_city: 'Bali',
             to_airport_code: 'BLI',
-            departure_time: ''
+            departure_time: new Date()
         }
     }
 
-    componentDidMount(){
-        
+    componentDidMount() {
+
     }
 
-    async getParam(){
+    async getParam() {
         await this.setState({
             from_airport_id: this.props.navigation.getParam('from_airport_id', this.state.from_airport_id),
             from_airport_city: this.props.navigation.getParam('from_airport_city', this.state.from_airport_city),
@@ -53,6 +52,13 @@ export default class OrderAirPlaneTicket extends Component {
             to_airport_city: this.props.navigation.getParam('to_airport_city', this.state.to_airport_city),
             to_airport_code: this.props.navigation.getParam('to_airport_code', this.state.to_airport_code)
         })
+    }
+
+    setDate(date){
+        this.setState({
+            departure_time: date
+        })
+        console.log(this.state.departure_time)
     }
 
     render() {
@@ -115,7 +121,22 @@ export default class OrderAirPlaneTicket extends Component {
 
                             <View style={{ padding: 12, alignItems: 'center' }}>
                                 <Text style={styles.textTitle}>Berangkat</Text>
-                                <Text style={styles.textValue}>Sel, 22 Okt 19</Text>
+                                {/* <Text style={styles.textValue}>Sel, 22 Okt 19</Text> */}
+                                <DatePicker
+                                    defaultDate={new Date(2018, 4, 4)}
+                                    minimumDate={new Date(2018, 1, 1)}
+                                    maximumDate={new Date(2018, 12, 31)}
+                                    locale={"id"}
+                                    timeZoneOffsetInMinutes={undefined}
+                                    modalTransparent={false}
+                                    animationType={"fade"}
+                                    androidMode={"default"}
+                                    placeHolderText="Select date"
+                                    textStyle={styles.textValue}
+                                    placeHolderTextStyle={{ color: "#d3d3d3" }}
+                                    onDateChange={(date) => this.setDate(date)}
+                                    disabled={false}
+                                />
                             </View>
 
                             <Dash style={{ width: '99%', height: 1 }} dashColor='#d9d9d9' />
@@ -128,7 +149,7 @@ export default class OrderAirPlaneTicket extends Component {
                             <Dash style={{ width: '99%', height: 1 }} dashColor='#d9d9d9' />
 
                             <View style={{ padding: 12, alignItems: 'center' }}>
-                                <Button full style={{ alignItems: 'center', backgroundColor: '#FF681B', borderRadius: 6 }}>
+                                <Button full style={{ alignItems: 'center', backgroundColor: '#FF681B', borderRadius: 6 }} onPress={() => this.props.navigation.navigate('ListAirplaneTicket')}>
                                     <Text>CARI TIKET</Text>
                                 </Button>
                             </View>
