@@ -119,7 +119,7 @@ export default class ListAirplaneTicket extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getParam()
     }
 
@@ -132,34 +132,34 @@ export default class ListAirplaneTicket extends Component {
         this.getTicketData(this.state.from_airport_id, this.state.to_airport_id, this.state.departure_time)
     }
 
-    async getTicketData(from, to, date){
+    async getTicketData(from, to, date) {
         await Http.get(`/plane-ticket/search?from=${from}&to=${to}&date=${date}`)
-        .then((res) => {
-            console.log(res.data.data.results)
-            this.setState({
-                tickets: res.data.data.results,
-                isLoading: false
+            .then((res) => {
+                console.log(res.data.data.results)
+                this.setState({
+                    tickets: res.data.data.results,
+                    isLoading: false
+                })
             })
-        })
-        .catch((err) => {
-            console.log(err.message)
-        })
+            .catch((err) => {
+                console.log(err.message)
+            })
     }
 
-    __renderListTicket(){
+    __renderListTicket() {
         if (this.state.isLoading) {
-            return(
+            return (
                 <View style={{ height: SCREEN_HEIGHT * 0.9, justifyContent: 'center' }}>
                     <Spinner color='red' />
                 </View>
             )
-        }else{
-            return(
+        } else {
+            return (
                 <FlatList
                     data={this.state.tickets}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item, key }) => (
-                        <TouchableOpacity onPress={() => alert('Pesan Tiket Garuda!')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('BookingTicketAirPlane')}>
                             <Card style={styles.cardListAirplaneTicket}>
                                 <Grid>
                                     <Col style={{ width: '15%' }}>
