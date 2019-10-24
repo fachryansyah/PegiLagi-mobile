@@ -20,128 +20,119 @@ import {
 } from 'native-base';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
-export default class ListAirplaneTicket extends Component {
+export default class ListTrainTicket extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            listAirplaneTicket: [
+            ListTrainTicket: [
                 {
-                    nameAirPlane: 'Garuda Indonesia',
+                    nameTrain: 'ARGO PARAHYANGAN 22',
                     departureTime: '14:00',
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
                     codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
                     codeNameToAirport: 'BTJ',
                     passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
+                    available: 'Tersedia',
+                    classTrain: 'Kelas Ekonomi (c)'
                 },
                 {
-                    nameAirPlane: 'Garuda Indonesia',
+                    nameTrain: 'ARGO PARAHYANGAN 22',
                     departureTime: '14:00',
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
                     codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
                     codeNameToAirport: 'BTJ',
                     passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
+                    available: 'Tersedia',
+                    classTrain: 'Kelas Ekonomi (c)'
                 },
                 {
-                    nameAirPlane: 'Garuda Indonesia',
+                    nameTrain: 'ARGO PARAHYANGAN 22',
                     departureTime: '14:00',
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
                     codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
                     codeNameToAirport: 'BTJ',
                     passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
+                    available: 'Tersedia',
+                    classTrain: 'Kelas Ekonomi (c)'
                 },
                 {
-                    nameAirPlane: 'Garuda Indonesia',
+                    nameTrain: 'ARGO PARAHYANGAN 22',
                     departureTime: '14:00',
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
                     codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
                     codeNameToAirport: 'BTJ',
                     passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
+                    available: 'Tersedia',
+                    classTrain: 'Kelas Ekonomi (c)'
                 },
                 {
-                    nameAirPlane: 'Garuda Indonesia',
+                    nameTrain: 'ARGO PARAHYANGAN 22',
                     departureTime: '14:00',
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
                     codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
                     codeNameToAirport: 'BTJ',
                     passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
+                    available: 'Tersedia',
+                    classTrain: 'Kelas Ekonomi (c)'
                 },
                 {
-                    nameAirPlane: 'Garuda Indonesia',
+                    nameTrain: 'ARGO PARAHYANGAN 22',
                     departureTime: '14:00',
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
                     codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
                     codeNameToAirport: 'BTJ',
                     passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
+                    available: 'Tersedia',
+                    classTrain: 'Kelas Ekonomi (c)'
                 },
                 {
-                    nameAirPlane: 'Garuda Indonesia',
+                    nameTrain: 'ARGO PARAHYANGAN 22',
                     departureTime: '14:00',
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
                     codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
                     codeNameToAirport: 'BTJ',
                     passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
+                    available: 'Tersedia',
+                    classTrain: 'Kelas Ekonomi (c)'
                 },
                 {
-                    nameAirPlane: 'Garuda Indonesia',
+                    nameTrain: 'ARGO PARAHYANGAN 22',
                     departureTime: '14:00',
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
                     codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
                     codeNameToAirport: 'BTJ',
                     passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
+                    available: 'Tersedia',
+                    classTrain: 'Kelas Ekonomi (c)'
                 },
                 {
-                    nameAirPlane: 'Garuda Indonesia',
+                    nameTrain: 'ARGO PARAHYANGAN 22',
                     departureTime: '14:00',
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
                     codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
                     codeNameToAirport: 'BTJ',
                     passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
+                    available: 'Tersedia',
+                    classTrain: 'Kelas Ekonomi (c)'
                 },
             ]
         }
@@ -153,15 +144,15 @@ export default class ListAirplaneTicket extends Component {
                 <Header style={styles.header} androidStatusBarColor='#f97432' noShadow={true}>
                     <Grid>
                         <Col style={{ width: '15%' }}>
-                            <Button transparent onPress={() => this.props.navigation.navigate('OrderAirplaneTicket')}>
-                                <Left>
+                            <Button transparent onPress={() => this.props.navigation.navigate('OrderTrainTicket')}>
+                                < Left >
                                     <Icon name='arrow-back' style={{ color: '#ffff' }} />
                                 </Left>
                             </Button>
                         </Col>
                         <Col style={{ width: '78%' }}>
                             <Text style={{ color: '#ffff', fontSize: 15 }}>
-                                Jakarta (JKT) <MaterialCommunityIcons style={[{ color: '#ffff' }]} size={15} name={'arrow-right'} /> Surabaya (SUB)
+                                Gambir (GMR) <MaterialCommunityIcons style={[{ color: '#ffff' }]} size={15} name={'arrow-right'} /> Bandung (BD)
                             </Text>
                             <Text style={{ color: '#ffff', fontSize: 12 }}>
                                 25 Okt 2019 . 1 Penumpang
@@ -169,7 +160,7 @@ export default class ListAirplaneTicket extends Component {
                         </Col>
                         <View>
                             <Button
-                                style={{ height: 40, width: 40, backgroundColor: '#e08b6c', position: 'absolute' }}
+                                style={{ height: 40, width: 40, backgroundColor: '#d58a00', position: 'absolute' }}
                                 transparent onPress={() => alert('Calender!')}>
                                 <MaterialCommunityIcons style={[{ color: '#ffff' }]} size={25} name={'calendar-range-outline'} />
                             </Button>
@@ -179,21 +170,21 @@ export default class ListAirplaneTicket extends Component {
                 <Content>
                     <View style={styles.container}>
                         <FlatList
-                            data={this.state.listAirplaneTicket}
+                            data={this.state.ListTrainTicket}
                             keyExtractor={(item) => item.id}
                             renderItem={({ item, key }) => (
-                                <TouchableOpacity onPress={() => alert('Pesan Tiket Garuda!')}>
-                                    <Card style={styles.cardListAirplaneTicket}>
+                                <TouchableOpacity onPress={() => alert('Pesan Tiket Kereta!')}>
+                                    <Card style={styles.cardListTrainTicket}>
                                         <Grid>
                                             <Col style={{ width: '15%' }}>
                                                 <Image
-                                                    style={{ width: 20, height: 20 }}
-                                                    source={require('../../Assets/Images/garuda.png')}
+                                                    style={{ width: 20, height: 20, backgroundColor: '#ffff' }}
+                                                    source={require('../../Assets/Images/pt-kai.png')}
                                                 />
                                             </Col>
                                             <Col>
                                                 <Text style={{ fontSize: 13 }}>
-                                                    {item.nameAirPlane}
+                                                    {item.nameTrain}
                                                 </Text>
                                             </Col>
                                         </Grid>
@@ -227,7 +218,6 @@ export default class ListAirplaneTicket extends Component {
                                             </Col>
                                             <Col style={{ width: '22%' }}>
                                                 <Text style={{ fontSize: 13, color: '#898989' }}>
-                                                    {item.transit}
                                                 </Text>
                                             </Col>
                                             <Col style={{ width: '20%' }}>
@@ -241,15 +231,19 @@ export default class ListAirplaneTicket extends Component {
                                                 </Text>
                                             </Col>
                                         </Grid>
-                                        <Grid style={{ marginTop: 10 }}>
-                                            <Col style={{ width: '20%' }}>
-                                                <Text style={{ fontSize: 11, color: '#898989' }}>
-                                                    <SimpleLineIcons style={[{ color: '#898989' }]} size={12} name={'handbag'} /> {item.baggage}
-                                                </Text>
+                                        <Grid>
+                                            <Col style={{ width: '62%' }}>
                                             </Col>
                                             <Col style={{ width: '30%' }}>
+                                                <Text style={{ fontSize: 13, color: '#81d135' }}>
+                                                    {item.available}
+                                                </Text>
+                                            </Col>
+                                        </Grid>
+                                        <Grid style={{ marginTop: 10 }}>
+                                            <Col style={{ width: '50%' }}>
                                                 <Text style={{ fontSize: 11, color: '#898989' }}>
-                                                    <MaterialCommunityIcons style={[{ color: '#898989' }]} size={12} name={'silverware-fork-knife'} /> {item.food}
+                                                    <SimpleLineIcons style={[{ color: '#898989' }]} size={12} name={'handbag'} /> {item.classTrain}
                                                 </Text>
                                             </Col>
                                             <Col style={{ alignItems: 'flex-end' }}>
@@ -288,14 +282,14 @@ export default class ListAirplaneTicket extends Component {
                         </View>
                     </View>
                 </View>
-            </Container>
+            </Container >
         );
     }
 }
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor: '#fb9d7b',
+        backgroundColor: '#ffa500',
         paddingTop: 7,
         paddingBottom: 7,
     },
@@ -304,7 +298,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fafafa',
         padding: 10
     },
-    cardListAirplaneTicket: {
+    cardListTrainTicket: {
         padding: 10
     },
     footer: {
