@@ -100,7 +100,7 @@ export default class OrderTrainTicket extends Component {
                             <Dash style={{ width: '99%', height: 1 }} dashColor='#d9d9d9' />
 
                             <View style={{ padding: 12, alignItems: 'center' }}>
-                                <Button full style={{ alignItems: 'center', backgroundColor: '#FF681B', borderRadius: 6 }}>
+                                <Button full style={{ alignItems: 'center', backgroundColor: '#FF681B', borderRadius: 6 }} onPress={() => this.props.navigation.navigate('ListTrainTicket')}>
                                     <Text>CARI TIKET</Text>
                                 </Button>
                             </View>

@@ -19,6 +19,7 @@ import SearchStation from './Screen/Search/SearchStation'
 import SearchAirportTo from './Screen/Search/SearchAirportTo'
 import SearchAirportFrom from './Screen/Search/SearchAirportFrom'
 import ListAirplaneTicket from './Screen/List/ListAirplaneTicket'
+import ListTrainTicket from './Screen/List/ListTrainTicket'
 
 
 const TabNavigation = createMaterialBottomTabNavigator(
@@ -107,6 +108,9 @@ const MainNavigation = createStackNavigator(
 		},
 		ListAirplaneTicket: {
 			screen: ListAirplaneTicket
+		},
+		ListTrainTicket: {
+			screen: ListTrainTicket
 		},
 	},
 	{
