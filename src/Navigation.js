@@ -109,7 +109,7 @@ const MainNavigation = createStackNavigator(
 		},
 		FilterAirplaneTicket: {
 			screen: FilterAirplaneTicket
-    },
+    	},
 		ListAirplaneTicket: {
 			screen: ListAirplaneTicket
 		},
