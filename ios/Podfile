@@ -37,6 +37,8 @@ target 'PegiLagiMobile' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
+
   target 'PegiLagiMobileTests' do
     inherit! :search_paths
     # Pods for testing
