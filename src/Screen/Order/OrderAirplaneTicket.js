@@ -4,7 +4,8 @@ import {
     StyleSheet,
     Switch,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    Modal
 } from 'react-native'
 import {
     Text,
@@ -35,7 +36,8 @@ export default class OrderAirPlaneTicket extends Component {
             to_airport_id: '',
             to_airport_city: 'Bali',
             to_airport_code: 'BLI',
-            departure_time: new Date()
+            departure_time: new Date(),
+            modalVisible: false
         }
     }
 
