@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@ptomasroos/react-native-multi-slider": "^1.0.0",
     "@react-native-community/async-storage": "^1.6.2",
     "axios": "^0.19.0",
     "native-base": "^2.13.8",
