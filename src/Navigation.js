@@ -18,6 +18,7 @@ import RegisterScreen from './Screen/RegisterScreen'
 import SearchStation from './Screen/Search/SearchStation'
 import SearchAirportTo from './Screen/Search/SearchAirportTo'
 import SearchAirportFrom from './Screen/Search/SearchAirportFrom'
+import FilterAirplaneTicket from "./Screen/Filter/FilterAirplaneTicket";
 
 
 const TabNavigation = createMaterialBottomTabNavigator(
@@ -103,6 +104,9 @@ const MainNavigation = createStackNavigator(
 		},
 		SearchAirPortFrom: {
 			screen: SearchAirportFrom
+		},
+		FilterAirplaneTicket: {
+			screen: FilterAirplaneTicket
 		},
 	},
 	{
