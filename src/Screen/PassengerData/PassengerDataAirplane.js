@@ -20,20 +20,74 @@ import {
     Label,
     Input,
     Picker
-} from 'native-base';
-export default class PassengerDataAirplane extends Component {
+} from 'native-base'
+import { connect } from 'react-redux'
+import { addPassanger, updatePassanger } from '../../Redux/Actions/Booking'
+
+
+class PassengerDataAirplane extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedTitel: undefined,
-            selectedIdentitas: undefined
+            name: '',
+            selectedTitel: 'Tuan',
+            isSameAsCustomer: false
         }
     }
 
-    onValueChangeTitel(value) {
-        this.setState({
+    componentDidMount(){
+        const passangerIndex = this.props.navigation.getParam('index')
+        const passanger = this.props.booking.listPassanger[passangerIndex]
+        if (passanger) {
+            this.setState({
+                name: passanger.name,
+                selectedTitel: passanger.titel
+            })   
+        }
+    }
+
+    async sameAsCustomer(){
+
+        if (!this.state.isSameAsCustomer) {
+            await this.setState({
+                name: this.props.auth.user.fullname
+            })
+        }else{
+            await this.setState({
+                name: ''
+            })
+        }
+
+        await this.setState({
+            isSameAsCustomer: !this.state.isSameAsCustomer
+        })
+    }
+
+    async onValueChangeTitel(value) {
+        await this.setState({
             selectedTitel: value
         });
+    }
+
+    async onAddPassanger(){
+        const passangerIndex = this.props.navigation.getParam('index')
+        const passanger = this.props.booking.listPassanger[passangerIndex]
+
+        if (passanger) {
+            await this.props.dispatch(updatePassanger({
+                index: passangerIndex,
+                name: this.state.name,
+                titel: this.state.selectedTitel
+            }))
+        }else{
+            await this.props.dispatch(addPassanger({
+                name: this.state.name,
+                titel: this.state.selectedTitel,
+                identity:1,
+                identity_no: 123456
+            }))
+        }
+        this.props.navigation.goBack(null)
     }
 
     onValueChangeIdentitas(value) {
@@ -71,7 +125,7 @@ export default class PassengerDataAirplane extends Component {
                         <View style={{ backgroundColor: '#ffff', paddingVertical: 30, paddingHorizontal: 15, }}>
                             <Grid>
                                 <Col style={{ width: '10%' }}>
-                                    <CheckBox checked={true} color='#f97432' />
+                                    <CheckBox checked={this.state.isSameAsCustomer} color='#f97432' onPress={() => this.sameAsCustomer()} />
                                 </Col>
                                 <Col style={{ width: '80%' }}>
                                     <Text style={{ color: '#898989' }}> Samakan dengan data pemesan</Text>
@@ -106,7 +160,7 @@ export default class PassengerDataAirplane extends Component {
                                 <Col>
                                     <Item floatingLabel>
                                         <Label style={{ color: '#898989' }}>Nama penumpang</Label>
-                                        <Input />
+                                        <Input value={this.state.name} onChangeText={(val) => this.setState({name:val})} />
                                     </Item>
                                     <Text style={{ color: '#898989', fontSize: 14, marginTop: 10 }}>Sesuai kartu identitas</Text>
                                 </Col>
@@ -149,7 +203,7 @@ export default class PassengerDataAirplane extends Component {
                                 </Col>
                             </Grid>
                         </View>
-                        <TouchableOpacity onPress={() => alert('SIMPAN!')} style={{ backgroundColor: '#f97432', marginTop: 15, marginHorizontal: 20 }}>
+                        <TouchableOpacity onPress={() => this.onAddPassanger()} style={{ backgroundColor: '#f97432', marginTop: 15, marginHorizontal: 20 }}>
                             <Text style={{ fontSize: 16, color: '#ffff', textAlign: "center", paddingVertical: 10 }}>SIMPAN</Text>
                         </TouchableOpacity>
                     </View>
@@ -172,3 +226,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#fafafa'
     },
 })
+
+const mapStateToProps = state => {
+    return {
+        booking: state.Booking,
+        auth: state.Auth
+    }
+}
+
+export default connect(mapStateToProps)(PassengerDataAirplane)

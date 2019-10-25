@@ -19,23 +19,246 @@ import {
     Item,
     Label,
     Input,
-    Card
-} from 'native-base';
+    Card,
+    Spinner
+} from 'native-base'
+import { connect } from 'react-redux'
+import { getPassanger } from '../../Redux/Actions/Booking'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Feather from 'react-native-vector-icons/Feather'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Dash from 'react-native-dash'
-export default class BookingTicketAirPlane extends Component {
+import Moment from 'moment-timezone'
+import Http from '../../Helpers/Http'
+
+
+class BookingTicketAirPlane extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
             isRoundTrip: false,
+            isLoading: false
+        }
+    }
+
+    async orderTicket(){
+
+        this.setState({
+            isLoading: true
+        })
+
+        const ticket = this.props.navigation.getParam('ticket')
+
+        await Http.post('/plane-ticket/order', JSON.stringify({
+            plane_ticket_id: ticket.id,
+            passengers: this.props.booking.listPassanger
+        }),{
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then((res) => {
+            if (res.data.status == 200) {
+               this.props.navigation.navigate('Payment', { booking: res.data.data })
+            }
+            this.setState({
+                isLoading: false
+            })
+        })
+        .catch((err) => {
+            console.log(err.message)
+            this.setState({
+                isLoading: false
+            })
+        })
+    }
+
+    __renderProfile(){
+        if (this.props.auth.isAuthenticate) {
+            return(
+                <View style={{ backgroundColor: '#ffff', padding: 20 }}>
+                    <Grid>
+                        <Col style={{ width: '20%' }}>
+                            <Image
+                                style={{ width: 50, height: 50, borderRadius: 50 }}
+                                source={{ uri: this.props.auth.user.avatar }}
+                            />
+                        </Col>
+                        <Col style={{ width: '80%' }}>
+                            <Text style={{ color: '#4d4f44' }}>{this.props.auth.user.fullname}</Text>
+                            <Text style={{ color: '#898989' }}>{this.props.auth.user.email}</Text>
+                        </Col>
+                    </Grid>
+                    <Dash style={{ width: '100%', height: 1, marginVertical: 20 }} dashColor='#d9d9d9' />
+                    {/* <Item floatingLabel>
+                        <Label style={{ color: '#898989' }}>Nomor telepon</Label>
+                        <Input />
+                    </Item> */}
+                </View>
+            )
+        }else{
+            return(
+                <View style={{ backgroundColor: '#ffff', padding: 20 }}>
+                    <Grid>
+                        <Col style={{ alignItems: 'center' }}>
+                            <Text>Anda harus masuk terlebih dahulu</Text>
+                        </Col>
+                    </Grid>
+                    <Dash style={{ width: '100%', height: 1, marginVertical: 20 }} dashColor='#d9d9d9' />
+                </View>
+            )
+        }
+    }
+
+    __renderListPassanger(){
+        if (this.props.auth.isAuthenticate) {
+            let elementAdults = []
+            let elementKids = []
+            let elementBabies = []
+            
+
+            for (let i = 0; i < this.props.booking.passangers.adults; i++) {
+                elementAdults.push(
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('PassengerDataAirplane', {index: i} )} key={i}>
+                        <View style={{ backgroundColor: '#ffff', padding: 20, marginBottom: 10 }}>
+                            <Grid>
+                                <Col style={{ width: '15%' }}>
+                                    <Feather style={[{ color: '#7f7f7f' }]} size={27} name={'user'} />
+                                </Col>
+                                <Col style={{ width: '75%' }}>
+                                    <Text style={{ color: '#4d4f44' }}>Isi data penumpang {i+1}</Text>
+                                    <Text style={{ color: '#898989' }}>Dewasa</Text>
+                                </Col>
+                                <Col style={styles.colIconRight}>
+                                    <Feather style={{ color: '#f97432' }} size={25} name={'arrow-right'} />
+                                </Col>
+                            </Grid>
+                        </View>
+                    </TouchableOpacity>
+                )
+            }
+
+            for(let i = 0; i < this.props.booking.passangers.kids;i++){
+                elementKids.push(
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('PassengerDataAirplane', {passanger: 'kids'} )} key={i}>
+                        <View style={{ backgroundColor: '#ffff', padding: 20, marginBottom: 10 }}>
+                            <Grid>
+                                <Col style={{ width: '15%' }}>
+                                    <Feather style={[{ color: '#7f7f7f' }]} size={27} name={'user'} />
+                                </Col>
+                                <Col style={{ width: '75%' }}>
+                                    <Text style={{ color: '#4d4f44' }}>Isi data Anak - anak {i+1}</Text>
+                                    <Text style={{ color: '#898989' }}>Anak - anak</Text>
+                                </Col>
+                                <Col style={styles.colIconRight}>
+                                    <Feather style={{ color: '#f97432' }} size={25} name={'arrow-right'} />
+                                </Col>
+                            </Grid>
+                        </View>
+                    </TouchableOpacity>
+                )
+            }
+
+            for(let i = 0; i < this.props.booking.passangers.babies; i++){
+                elementKids.push(
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('PassengerDataAirplane',  {passanger: 'baby'} )} key={i}>
+                        <View style={{ backgroundColor: '#ffff', padding: 20, marginBottom: 10 }}>
+                            <Grid>
+                                <Col style={{ width: '15%' }}>
+                                    <Feather style={[{ color: '#7f7f7f' }]} size={27} name={'user'} />
+                                </Col>
+                                <Col style={{ width: '75%' }}>
+                                    <Text style={{ color: '#4d4f44' }}>Isi data Bayi {i+1}</Text>
+                                    <Text style={{ color: '#898989' }}>Bayi</Text>
+                                </Col>
+                                <Col style={styles.colIconRight}>
+                                    <Feather style={{ color: '#f97432' }} size={25} name={'arrow-right'} />
+                                </Col>
+                            </Grid>
+                        </View>
+                    </TouchableOpacity>
+                )
+            }
+            
+
+            return(
+                <>
+                    <Text style={{ color: '#4d4f44', fontSize: 18, paddingVertical: 10, paddingHorizontal: 15 }}>Data Penumpang</Text>
+                    {elementAdults}
+                    {elementKids}
+                    {elementBabies}
+                </>
+            )
+        }else{
+            return(
+                <View>
+                    
+                </View>
+            )
+        }
+    }
+
+    __renderButtonLoading(){
+        if (this.state.isLoading) {
+            return(
+                <>
+                    <Spinner color='#f97432' />
+                </>
+            )
+        }else{
+            return(
+                <TouchableOpacity onPress={() => this.orderTicket()} style={{ backgroundColor: '#f97432', marginTop: 15 }}>
+                    <Text style={{ fontSize: 18, color: '#ffff', textAlign: "center", paddingVertical: 10 }}>LANJUT</Text>
+                </TouchableOpacity>
+            )
+        }
+    }
+
+    __renderButtonNext(){
+        if (this.props.auth.isAuthenticate) {
+            return(
+                <>
+                    <Grid>
+                        <Col>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ color: '#898989', fontSize: 13 }}>Dengan menekan tombol </Text>
+                                <Text style={{ color: '#4b4b43', fontSize: 15 }}>LANJUT, </Text>
+                                <Text style={{ color: '#898989', fontSize: 13 }}>saya setuju dengan </Text>
+                            </View>
+                        </Col>
+                    </Grid>
+                    <Grid>
+                        <Col>
+                            <View style={{ flexDirection: 'row' }}>
+                                <TouchableOpacity onPress={() => alert('Kebijakan Privasi!')}>
+                                    <Text style={{ color: '#f97432', fontSize: 13 }}>Kebijakan Privasi </Text>
+                                </TouchableOpacity>
+                                <Text style={{ color: '#898989', fontSize: 13 }}>dan </Text>
+                                <TouchableOpacity onPress={() => alert('Ketentuan Penggunaan!')}>
+                                    <Text style={{ color: '#f97432', fontSize: 13 }}>Ketentuan Penggunaan </Text>
+                                </TouchableOpacity>
+                                <Text style={{ color: '#898989', fontSize: 13 }}>Pegilagi </Text>
+                            </View>
+                        </Col>
+                    </Grid>
+                    {this.__renderButtonLoading()}
+                </>
+            )
+        }else{
+            return(
+                <>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} style={{ backgroundColor: '#f97432', marginTop: 15 }}>
+                        <Text style={{ fontSize: 18, color: '#ffff', textAlign: "center", paddingVertical: 10 }}>MASUK</Text>
+                    </TouchableOpacity>
+                </>
+            )
         }
     }
 
     render() {
+        const ticket = this.props.navigation.getParam('ticket')
         return (
             <Container>
                 <Header style={styles.header} androidStatusBarColor='#f97432' noShadow={true}>
@@ -68,7 +291,7 @@ export default class BookingTicketAirPlane extends Component {
                             <Grid>
                                 <Col style={{ width: '80%' }}>
                                     <Text style={{ color: '#4d4f44' }}>
-                                        <SimpleLineIcons style={[{ color: '#f97432' }]} size={16} name={'plane'} /> Jakarta <MaterialCommunityIcons size={15} name={'arrow-right'} /> Surabaya
+                                        <SimpleLineIcons style={[{ color: '#f97432' }]} size={16} name={'plane'} /> {ticket.fromAirport.city} <MaterialCommunityIcons size={15} name={'arrow-right'} /> {ticket.toAirport.city}
                                     </Text>
                                 </Col>
                                 <Col style={{ alignItems: 'flex-end' }}>
@@ -85,12 +308,12 @@ export default class BookingTicketAirPlane extends Component {
                             <Dash style={{ width: '100%', height: 1, marginVertical: 12 }} dashColor='#d9d9d9' />
                             <Grid>
                                 <Col>
-                                    <Text style={{ color: '#4d4f44' }}>Garuda Indonesia</Text>
+                                    <Text style={{ color: '#4d4f44' }}>{ticket.plane.name}</Text>
                                 </Col>
                             </Grid>
                             <Grid style={{ marginVertical: 5 }}>
                                 <Col>
-                                    <Text style={{ color: '#4d4f44', fontSize: 12 }}>Jum,25 Okt 2019, 11:20 (CGK) <MaterialCommunityIcons size={15} name={'arrow-right'} /> 12:50 (SUB) </Text>
+                                    <Text style={{ color: '#4d4f44', fontSize: 12 }}>{Moment.tz(ticket.departure_time, 'Asia/Jakarta').format('MMMM Do YYYY, h:mm:ss a')} ({ticket.fromAirport.code_name}) <MaterialCommunityIcons size={15} name={'arrow-right'} /> {Moment.tz(ticket.arrived_time, 'Asia/Jakarta').format('LT')} ({ticket.toAirport.code_name}) </Text>
                                 </Col>
                             </Grid>
                             <Grid>
@@ -101,42 +324,11 @@ export default class BookingTicketAirPlane extends Component {
                             <Dash style={{ width: '100%', height: 1, marginVertical: 20 }} dashColor='#d9d9d9' />
                         </View>
                         <Text style={{ color: '#7f7f7f', fontSize: 15, paddingTop: 10, paddingBottom: 5, paddingHorizontal: 15 }}>Data Pemesan</Text>
-                        <View style={{ backgroundColor: '#ffff', padding: 20 }}>
-                            <Grid>
-                                <Col style={{ width: '20%' }}>
-                                    <Image
-                                        style={{ width: 50, height: 50, borderRadius: 50 }}
-                                        source={{ uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' }}
-                                    />
-                                </Col>
-                                <Col style={{ width: '80%' }}>
-                                    <Text style={{ color: '#4d4f44' }}>Anto Ardy</Text>
-                                    <Text style={{ color: '#898989' }}>indrajuni@gmail.com</Text>
-                                </Col>
-                            </Grid>
-                            <Dash style={{ width: '100%', height: 1, marginVertical: 20 }} dashColor='#d9d9d9' />
-                            <Item floatingLabel>
-                                <Label style={{ color: '#898989' }}>Nomor telepon</Label>
-                                <Input />
-                            </Item>
-                        </View>
-                        <Text style={{ color: '#4d4f44', fontSize: 18, paddingVertical: 10, paddingHorizontal: 15 }}>Data Penumpang</Text>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('PassengerDataAirplane')}>
-                            <View style={{ backgroundColor: '#ffff', padding: 20, marginBottom: 25 }}>
-                                <Grid>
-                                    <Col style={{ width: '15%' }}>
-                                        <Feather style={[{ color: '#7f7f7f' }]} size={27} name={'user'} />
-                                    </Col>
-                                    <Col style={{ width: '75%' }}>
-                                        <Text style={{ color: '#4d4f44' }}>Isi data penumpang1</Text>
-                                        <Text style={{ color: '#898989' }}>Dewasa</Text>
-                                    </Col>
-                                    <Col style={styles.colIconRight}>
-                                        <Feather style={{ color: '#f97432' }} size={25} name={'arrow-right'} />
-                                    </Col>
-                                </Grid>
-                            </View>
-                        </TouchableOpacity>
+                        
+                        {this.__renderProfile()}
+                        
+                        {this.__renderListPassanger()}
+
                         <View style={{ backgroundColor: '#f5fafd', padding: 20 }}>
                             <Grid>
                                 <Col style={{ width: '15%' }}>
@@ -223,32 +415,9 @@ export default class BookingTicketAirPlane extends Component {
                             </Grid>
                         </View>
                         <View style={{ backgroundColor: '#f5fafd', padding: 20 }}>
-                            <Grid>
-                                <Col>
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <Text style={{ color: '#898989', fontSize: 13 }}>Dengan menekan tombol </Text>
-                                        <Text style={{ color: '#4b4b43', fontSize: 15 }}>LANJUT, </Text>
-                                        <Text style={{ color: '#898989', fontSize: 13 }}>saya setuju dengan </Text>
-                                    </View>
-                                </Col>
-                            </Grid>
-                            <Grid>
-                                <Col>
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <TouchableOpacity onPress={() => alert('Kebijakan Privasi!')}>
-                                            <Text style={{ color: '#f97432', fontSize: 13 }}>Kebijakan Privasi </Text>
-                                        </TouchableOpacity>
-                                        <Text style={{ color: '#898989', fontSize: 13 }}>dan </Text>
-                                        <TouchableOpacity onPress={() => alert('Ketentuan Penggunaan!')}>
-                                            <Text style={{ color: '#f97432', fontSize: 13 }}>Ketentuan Penggunaan </Text>
-                                        </TouchableOpacity>
-                                        <Text style={{ color: '#898989', fontSize: 13 }}>Pegilagi </Text>
-                                    </View>
-                                </Col>
-                            </Grid>
-                            <TouchableOpacity onPress={() => alert('LANJUT!')} style={{ backgroundColor: '#f97432', marginTop: 15 }}>
-                                <Text style={{ fontSize: 18, color: '#ffff', textAlign: "center", paddingVertical: 10 }}>LANJUT</Text>
-                            </TouchableOpacity>
+                            
+                            {this.__renderButtonNext()}
+
                         </View>
                     </View>
                 </Content>
@@ -274,3 +443,12 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
 })
+
+const mapStateToState = state => {
+    return {
+        booking: state.Booking,
+        auth: state.Auth
+    }
+}
+
+export default connect(mapStateToState)(BookingTicketAirPlane)
