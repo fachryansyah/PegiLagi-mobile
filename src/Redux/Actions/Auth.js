@@ -12,3 +12,10 @@ export const getUser = () => {
         payload: {}
     }
 }
+
+export const logout = () => {
+    return {
+        type: 'LOGOUT',
+        payload: {}
+    }
+}

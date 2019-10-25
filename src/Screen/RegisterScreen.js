@@ -21,15 +21,104 @@ import {
     Input,
     Item,
     Label,
+    Spinner,
     CheckBox
 } from 'native-base';
 import Dash from 'react-native-dash'
+import Http from '../Helpers/Http'
+
+
 export default class RegisterScreen extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            isLogin: false
+            email: '',
+            fullname: '',
+            password: '',
+            confirmPassword: '',
+            errors: [],
+            isCheckAgreement: false,
+            isLoading: false,
+            isLogin: false,
+            isEmailValid: true,
+            isPasswordValid: true
+        }
+    }
+
+    async register(){
+
+        const { email, fullname, password } = this.state
+
+        if (!this.state.isCheckAgreement) {
+            return alert("Mohon menyetujui persyaratan")
+        }
+
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+        if (reg.test(this.state.email) === false) {
+            alert("Email doesn't valid")
+            return this.setState({
+                isEmailValid: false
+            })
+        }
+
+        this.setState({
+            isEmailValid: true
+        })
+
+        if (this.state.password !== this.state.confirmPassword) {
+            alert("Password tidak sama")
+            return this.setState({
+                isPasswordValid: false
+            })
+        }
+
+        this.setState({
+            isLoading: true
+        })
+
+        await Http.post('/auth/register',{
+            email,
+            fullname,
+            password
+        })
+        .then((res) => {
+
+            if (res.data.status == 304) {
+                alert(res.data.errors[0].msg)
+            }
+
+            if (res.data.status == 200) {
+                alert('Registrasi sukses!')
+                this.props.navigation.navigate('Login')
+            }
+
+            this.setState({
+                isLoading: false
+            })
+        })
+        .catch((err) => {
+            console.log(err.message)
+            this.setState({
+                isLoading: false
+            })
+        })
+    }
+
+    __renderBtnRegister(){
+        if(this.state.isLoading){
+            return(
+                <>
+                    <Spinner color='#f97432' />
+                </>
+            )
+        }else{
+            return(
+                <Button style={styles.buttonLogin} onPress={() => this.register()}>
+                    <Text style={{ color: 'white', fontWeight: 'bold' }}>REGISTER</Text>
+                </Button>
+            )
         }
     }
 
@@ -68,28 +157,28 @@ export default class RegisterScreen extends Component {
                         <Grid>
                             <Col>
                                 <Form>
-                                    <Item floatingLabel>
+                                    <Item floatingLabel error={!this.state.isEmailValid}>
                                         <Label style={styles.labelForm}>Email</Label>
-                                        <Input />
+                                        <Input onChangeText={(val) => this.setState({email:val})} />
                                     </Item>
                                     <Item floatingLabel>
                                         <Label style={styles.labelForm}>Nama lengkap (tanpa gelar)</Label>
-                                        <Input />
+                                        <Input onChangeText={(val) => this.setState({fullname: val})} />
                                     </Item>
-                                    <Item floatingLabel>
+                                    <Item floatingLabel error={!this.state.isPasswordValid}>
                                         <Label style={styles.labelForm}>Password</Label>
-                                        <Input secureTextEntry={true} />
+                                        <Input secureTextEntry={true} onChangeText={(val) => this.setState({password:val})} />
                                     </Item>
-                                    <Item floatingLabel>
+                                    <Item floatingLabel error={!this.state.isPasswordValid}>
                                         <Label style={styles.labelForm}>Konfirmasi Password</Label>
-                                        <Input secureTextEntry={true} />
+                                        <Input secureTextEntry={true} onChangeText={(val) => this.setState({confirmPassword: val})} />
                                     </Item>
                                 </Form>
                             </Col>
                         </Grid>
                         <Grid style={{ marginTop: 35, marginBottom: 10 }}>
                             <Col style={{ width: '20%' }}>
-                                <CheckBox checked={true} color="#f97432" />
+                                <CheckBox checked={this.state.isCheckAgreement} color="#f97432" onPress={() => this.setState({ isCheckAgreement: !this.state.isCheckAgreement })} />
                             </Col>
                             <Col style={{ width: '80%' }}>
                                 <View style={{ flexDirection: 'row' }}>
@@ -104,9 +193,7 @@ export default class RegisterScreen extends Component {
                                 </View>
                             </Col>
                         </Grid>
-                        <Button style={styles.buttonLogin}>
-                            <Text style={{ color: 'white', fontWeight: 'bold' }}>REGISTER</Text>
-                        </Button>
+                        {this.__renderBtnRegister()}
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                             <Text style={{ fontSize: 14 }}>Sudah memiliki akun?</Text>
                             <Text style={{ color: '#f97432', fontSize: 14 }} onPress={() => this.props.navigation.navigate("Login")}> Masuk</Text>

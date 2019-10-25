@@ -17,16 +17,29 @@ import {
     Grid
 } from 'native-base';
 import Dash from 'react-native-dash'
+import { connect } from 'react-redux'
+import { logout } from '../Redux/Actions/Auth'
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome'
 import AntDesignIcons from 'react-native-vector-icons/AntDesign'
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-export default class ProfileScreen extends Component {
+import Http from '../Helpers/Http'
+import AsyncStorage from '@react-native-community/async-storage';
+
+
+class ProfileScreen extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
             isLogin: true
         }
+    }
+
+    async logout(){
+        await this.props.dispatch(logout())
+        await AsyncStorage.removeItem('@token')
+        Http.defaults.headers.common['Authorization'] = 'Bearer '
+        alert('Logged out!')
     }
 
     __renderNotLogin() {
@@ -153,15 +166,15 @@ export default class ProfileScreen extends Component {
                                 <Col style={styles.colImage}>
                                     <Image
                                         style={{ width: 50, height: 50, borderRadius: 50 }}
-                                        source={{ uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' }}
+                                        source={{ uri: this.props.auth.user.avatar }}
                                     />
                                 </Col>
                                 <Col style={styles.colText2}>
                                     <Text style={{ color: '#4d4f44', fontSize: 17, marginBottom: 10 }}>
-                                        Anto Ardy
+                                        {this.props.auth.user.fullname}
                                     </Text>
                                     <Text style={{ color: '#898989', fontSize: 13 }}>
-                                        indrajuniyanto96@gmail.com
+                                        {this.props.auth.user.email}
                                     </Text>
                                 </Col>
                                 <Col style={styles.colIconRight2}>
@@ -256,7 +269,7 @@ export default class ProfileScreen extends Component {
                             </Col>
                         </Grid>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => alert('Keluar!')}>
+                    <TouchableOpacity onPress={() => this.logout()}>
                         <Grid>
                             <Col style={styles.colCardItemsKeluar}>
                                 <Grid>
@@ -296,7 +309,7 @@ export default class ProfileScreen extends Component {
                     </Body>
                     <Right />
                 </Header>
-                {this.state.isLogin ? this.__renderLogin() : this.__renderNotLogin()}
+                {this.props.auth.isAuthenticate ? this.__renderLogin() : this.__renderNotLogin()}
             </Container>
         );
     }
@@ -402,3 +415,11 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
 })
+
+const mapStateToProps = state => {
+    return {
+        auth: state.Auth
+    }
+}
+
+export default connect(mapStateToProps)(ProfileScreen)
