@@ -31,6 +31,8 @@ import HomeProfil from './Screen/Home'
 import ChangePassword from './Screen/ChangePassword'
 import ChangeEmail from './Screen/ChangeEmail'
 import ChangePersonalData from './Screen/ChangePersonalData'
+import HistoryTicketTrain from './Screen/History/HistoryTicketTrain'
+import HistoryTicketAirplane from './Screen/History/HistoryTicketAirplane'
 
 const TabNavigation = createMaterialBottomTabNavigator(
 	{
@@ -130,7 +132,7 @@ const MainNavigation = createStackNavigator(
 		},
 		Payment: {
 			screen: Payment
-    },
+		},
 		BookingTicketAirPlane: {
 			screen: BookingTicketAirPlane
 		},
@@ -157,6 +159,12 @@ const MainNavigation = createStackNavigator(
 		},
 		ChangePersonalData: {
 			screen: ChangePersonalData
+		},
+		HistoryTicketTrain: {
+			screen: HistoryTicketTrain
+		},
+		HistoryTicketAirplane: {
+			screen: HistoryTicketAirplane
 		},
 	},
 	{

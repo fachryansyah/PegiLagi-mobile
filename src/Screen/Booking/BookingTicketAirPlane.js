@@ -69,7 +69,7 @@ export default class BookingTicketAirPlane extends Component {
                                 <Col style={{ width: '80%' }}>
                                     <Text style={{ color: '#4d4f44' }}>
                                         <SimpleLineIcons style={[{ color: '#f97432' }]} size={16} name={'plane'} /> Jakarta <MaterialCommunityIcons size={15} name={'arrow-right'} /> Surabaya
-                                </Text>
+                                    </Text>
                                 </Col>
                                 <Col style={{ alignItems: 'flex-end' }}>
                                     <TouchableOpacity onPress={() => alert('Detail!')}>

@@ -32,8 +32,8 @@ export default class ListTrainTicket extends Component {
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    codeNameToAirport: 'BTJ',
+                    codeNameFromStasion: 'CGK',
+                    codeNameToStasion: 'BTJ',
                     passenger: 'per orang',
                     available: 'Tersedia',
                     classTrain: 'Kelas Ekonomi (c)'
@@ -44,8 +44,8 @@ export default class ListTrainTicket extends Component {
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    codeNameToAirport: 'BTJ',
+                    codeNameFromStasion: 'CGK',
+                    codeNameToStasion: 'BTJ',
                     passenger: 'per orang',
                     available: 'Tersedia',
                     classTrain: 'Kelas Ekonomi (c)'
@@ -56,8 +56,8 @@ export default class ListTrainTicket extends Component {
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    codeNameToAirport: 'BTJ',
+                    codeNameFromStasion: 'CGK',
+                    codeNameToStasion: 'BTJ',
                     passenger: 'per orang',
                     available: 'Tersedia',
                     classTrain: 'Kelas Ekonomi (c)'
@@ -68,8 +68,8 @@ export default class ListTrainTicket extends Component {
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    codeNameToAirport: 'BTJ',
+                    codeNameFromStasion: 'CGK',
+                    codeNameToStasion: 'BTJ',
                     passenger: 'per orang',
                     available: 'Tersedia',
                     classTrain: 'Kelas Ekonomi (c)'
@@ -80,8 +80,8 @@ export default class ListTrainTicket extends Component {
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    codeNameToAirport: 'BTJ',
+                    codeNameFromStasion: 'CGK',
+                    codeNameToStasion: 'BTJ',
                     passenger: 'per orang',
                     available: 'Tersedia',
                     classTrain: 'Kelas Ekonomi (c)'
@@ -92,8 +92,8 @@ export default class ListTrainTicket extends Component {
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    codeNameToAirport: 'BTJ',
+                    codeNameFromStasion: 'CGK',
+                    codeNameToStasion: 'BTJ',
                     passenger: 'per orang',
                     available: 'Tersedia',
                     classTrain: 'Kelas Ekonomi (c)'
@@ -104,8 +104,8 @@ export default class ListTrainTicket extends Component {
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    codeNameToAirport: 'BTJ',
+                    codeNameFromStasion: 'CGK',
+                    codeNameToStasion: 'BTJ',
                     passenger: 'per orang',
                     available: 'Tersedia',
                     classTrain: 'Kelas Ekonomi (c)'
@@ -116,8 +116,8 @@ export default class ListTrainTicket extends Component {
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    codeNameToAirport: 'BTJ',
+                    codeNameFromStasion: 'CGK',
+                    codeNameToStasion: 'BTJ',
                     passenger: 'per orang',
                     available: 'Tersedia',
                     classTrain: 'Kelas Ekonomi (c)'
@@ -128,8 +128,8 @@ export default class ListTrainTicket extends Component {
                     travelTime: '1j 40m',
                     arrivedTime: '15:40',
                     price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    codeNameToAirport: 'BTJ',
+                    codeNameFromStasion: 'CGK',
+                    codeNameToStasion: 'BTJ',
                     passenger: 'per orang',
                     available: 'Tersedia',
                     classTrain: 'Kelas Ekonomi (c)'
@@ -213,7 +213,7 @@ export default class ListTrainTicket extends Component {
                                         <Grid>
                                             <Col style={{ width: '20%' }}>
                                                 <Text style={{ fontSize: 13, color: '#898989' }}>
-                                                    {item.codeNameFromAirport}
+                                                    {item.codeNameFromStasion}
                                                 </Text>
                                             </Col>
                                             <Col style={{ width: '22%' }}>
@@ -222,7 +222,7 @@ export default class ListTrainTicket extends Component {
                                             </Col>
                                             <Col style={{ width: '20%' }}>
                                                 <Text style={{ fontSize: 13, color: '#898989' }}>
-                                                    {item.codeNameToAirport}
+                                                    {item.codeNameToStasion}
                                                 </Text>
                                             </Col>
                                             <Col style={{ width: '30%' }}>
