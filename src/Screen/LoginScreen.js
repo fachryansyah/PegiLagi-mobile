@@ -133,16 +133,16 @@ class LoginScreen extends Component {
                         </Item>
                         <Item floatingLabel>
                             <Label style={styles.labelForm}>Password</Label>
-                            <Input placeholder="Password" onChangeText={(val) => this.setState({ password: val })} />
+                            <Input placeholder="Password" secureTextEntry={true}  onChangeText={(val) => this.setState({ password: val })} />
                         </Item>
                     </Form>
 
                     {this.__renderBtnLogin()}
 
                     <View style={{ justifyContent: 'center', flexDirection: 'row', marginBottom: 25 }}>
-                        <Text style={{ color: '#f97432', fontWeight: 'bold', borderRightColor: "#aaa", borderRightWidth: 1, marginRight: 5, paddingRight: 5 }} onPress={() => alert("hai")}>Lupa Password? </Text>
+                        <Text style={{ color: '#f97432', fontWeight: 'bold', borderRightColor: "#aaa", borderRightWidth: 1, marginRight: 5, paddingRight: 5 }} onPress={() => this.props.navigation.navigate('ForgotPassword')}>Lupa Password? </Text>
 
-                        <Text style={{ color: '#f97432', fontWeight: 'bold', }} onPress={() => alert("hai")}> Belum memiliki akun?</Text>
+                        <Text style={{ color: '#f97432', fontWeight: 'bold', }} onPress={() => this.props.navigation.navigate("Register")}> Belum memiliki akun?</Text>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
                         <Dash style={{ width: '42%', height: 1, marginVertical: 12 }} dashColor='#d9d9d9' />

@@ -34,6 +34,7 @@ import ChangePersonalData from './Screen/ChangePersonalData'
 import HistoryTicketTrain from './Screen/History/HistoryTicketTrain'
 import HistoryTicketAirplane from './Screen/History/HistoryTicketAirplane'
 import WebViewScreen from './Screen/WebViewScreen'
+import ForgotPassword from './Screen/ForgotPassword'
 
 const TabNavigation = createMaterialBottomTabNavigator(
 	{
@@ -169,6 +170,9 @@ const MainNavigation = createStackNavigator(
 		},
 		WebViewScreen: {
 			screen: WebViewScreen
+		},
+		ForgotPassword:{
+			screen: ForgotPassword
 		}
 	},
 	{
