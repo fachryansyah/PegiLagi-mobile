@@ -4,7 +4,8 @@ import {
 	ImageBackground,
 	TouchableOpacity,
 	ScrollView,
-	Dimensions
+	Dimensions,
+	Image
 } from 'react-native'
 import {
 	Container,
@@ -29,7 +30,10 @@ export default class HomeScreen extends Component {
 				<ScrollView style={{ marginBottom: 20 }}>
 					<Header style={styles.header} androidStatusBarColor='#f97432'>
 						<Body>
-							<Title style={{ color: '#000' }}>pegilagi</Title>
+							<Image
+								style={{ width: 120, height: 25, }}
+								source={require('../Assets/Images/Logo_Pegilagi.png')}
+							/>
 						</Body>
 						<Right />
 					</Header>
@@ -76,7 +80,7 @@ export default class HomeScreen extends Component {
 						<Slideshow />
 					</Content>
 
-					<Dash style={{width:'100%', height:1, marginVertical: 12}} dashColor='#d9d9d9'/>
+					<Dash style={{ width: '100%', height: 1, marginVertical: 12 }} dashColor='#d9d9d9' />
 
 					<Content contentContainerStyle={styles.container}>
 						<Content contentContainerStyle={styles.section}>
@@ -96,7 +100,7 @@ export default class HomeScreen extends Component {
 						<TravelTips />
 					</Content>
 
-					<Dash style={{width:'100%', height:1, marginTop: 22}} dashColor='#d9d9d9'/>
+					<Dash style={{ width: '100%', height: 1, marginTop: 22 }} dashColor='#d9d9d9' />
 
 					<Content contentContainerStyle={styles.container}>
 						<Content contentContainerStyle={styles.section}>
@@ -183,10 +187,10 @@ const styles = StyleSheet.create({
 	iconSection: {
 		color: '#d9d9d9'
 	},
-	textTitleHelp:{
+	textTitleHelp: {
 		fontSize: 18
 	},
-	textSubTitleHelp:{
+	textSubTitleHelp: {
 		fontSize: 18,
 		color: '#878787'
 	},
