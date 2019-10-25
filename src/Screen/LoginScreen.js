@@ -3,7 +3,7 @@ import Dash from 'react-native-dash'
 import { connect } from 'react-redux'
 import { authenticate } from '../Redux/Actions/Auth'
 import AsyncStorage from '@react-native-community/async-storage'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, } from 'react-native'
 import {
     Container,
     Header,
