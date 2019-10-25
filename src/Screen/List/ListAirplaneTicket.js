@@ -4,7 +4,8 @@ import {
     StyleSheet,
     FlatList,
     TouchableOpacity,
-    Image
+    Image,
+    Dimensions
 } from 'react-native'
 import {
     Container,
@@ -16,55 +17,26 @@ import {
     Button,
     Left,
     Icon,
-    Card
+    Card,
+    Spinner
 } from 'native-base';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
+import Moment from 'moment-timezone'
+import Http from '../../Helpers/Http'
+
+const SCREEN_HEIGHT = Dimensions.get('window').height
+
 export default class ListAirplaneTicket extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            listAirplaneTicket: [
-                {
-                    nameAirPlane: 'Garuda Indonesia',
-                    departureTime: '14:00',
-                    travelTime: '1j 40m',
-                    arrivedTime: '15:40',
-                    price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
-                    codeNameToAirport: 'BTJ',
-                    passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
-                },
-                {
-                    nameAirPlane: 'Garuda Indonesia',
-                    departureTime: '14:00',
-                    travelTime: '1j 40m',
-                    arrivedTime: '15:40',
-                    price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
-                    codeNameToAirport: 'BTJ',
-                    passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
-                },
-                {
-                    nameAirPlane: 'Garuda Indonesia',
-                    departureTime: '14:00',
-                    travelTime: '1j 40m',
-                    arrivedTime: '15:40',
-                    price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
-                    codeNameToAirport: 'BTJ',
-                    passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
-                },
+            from_airport_id: '',
+            to_airport_id: '',
+            departure_time: '',
+            isLoading: true,
+            tickets: [
                 {
                     nameAirPlane: 'Garuda Indonesia',
                     departureTime: '14:00',
@@ -147,6 +119,130 @@ export default class ListAirplaneTicket extends Component {
         }
     }
 
+    componentDidMount() {
+        this.getParam()
+    }
+
+    async getParam() {
+        await this.setState({
+            from_airport_id: this.props.navigation.getParam('from_airport_id', this.state.from_airport_id),
+            to_airport_id: this.props.navigation.getParam('to_airport_id', this.state.to_airport_id),
+            departure_time: this.props.navigation.getParam('departure_time', this.state.departure_time)
+        })
+        this.getTicketData(this.state.from_airport_id, this.state.to_airport_id, this.state.departure_time)
+    }
+
+    async getTicketData(from, to, date) {
+        await Http.get(`/plane-ticket/search?from=${from}&to=${to}&date=${date}`)
+            .then((res) => {
+                console.log(res.data.data.results)
+                this.setState({
+                    tickets: res.data.data.results,
+                    isLoading: false
+                })
+            })
+            .catch((err) => {
+                console.log(err.message)
+            })
+    }
+
+    __renderListTicket() {
+        if (this.state.isLoading) {
+            return (
+                <View style={{ height: SCREEN_HEIGHT * 0.9, justifyContent: 'center' }}>
+                    <Spinner color='red' />
+                </View>
+            )
+        } else {
+            return (
+                <FlatList
+                    data={this.state.tickets}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item, key }) => (
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('BookingTicketAirPlane')}>
+                            <Card style={styles.cardListAirplaneTicket}>
+                                <Grid>
+                                    <Col style={{ width: '15%' }}>
+                                        <Image
+                                            style={{ width: 20, height: 20 }}
+                                            source={require('../../Assets/Images/garuda.png')}
+                                        />
+                                    </Col>
+                                    <Col>
+                                        <Text style={{ fontSize: 13 }}>
+                                            {item.plane.name}
+                                        </Text>
+                                    </Col>
+                                </Grid>
+                                <Grid>
+                                    <Col style={{ width: '20%' }}>
+                                        <Text style={{ fontSize: 13 }}>
+                                            {Moment.tz(item.departure_time, 'Asia/Jakarta').format('LT')}
+                                        </Text>
+                                    </Col>
+                                    <Col style={{ width: '22%' }}>
+                                        <Text style={{ fontSize: 13 }}>
+                                            {Moment(item.arrived_time).diff(Moment(item.departure_time), 'hours')} JAM
+                                        </Text>
+                                    </Col>
+                                    <Col style={{ width: '20%' }}>
+                                        <Text style={{ fontSize: 13 }}>
+                                            {Moment.tz(item.arrived_time, 'Asia/Jakarta').format('LT')}
+                                        </Text>
+                                    </Col>
+                                    <Col style={{ width: '30%' }}>
+                                        <Text style={{ fontSize: 13, color: '#ffa500' }}>
+                                            {item.price}
+                                        </Text>
+                                    </Col>
+                                </Grid>
+                                <Grid>
+                                    <Col style={{ width: '20%' }}>
+                                        <Text style={{ fontSize: 13, color: '#898989' }}>
+                                            {item.fromAirport.code_name}
+                                        </Text>
+                                    </Col>
+                                    <Col style={{ width: '22%' }}>
+                                        <Text style={{ fontSize: 13, color: '#898989' }}>
+                                            {item.transit}
+                                        </Text>
+                                    </Col>
+                                    <Col style={{ width: '20%' }}>
+                                        <Text style={{ fontSize: 13, color: '#898989' }}>
+                                            {item.toAirport.code_name}
+                                        </Text>
+                                    </Col>
+                                    <Col style={{ width: '30%' }}>
+                                        <Text style={{ fontSize: 13, color: '#898989' }}>
+                                            per orang
+                                        </Text>
+                                    </Col>
+                                </Grid>
+                                <Grid style={{ marginTop: 10 }}>
+                                    <Col style={{ width: '20%' }}>
+                                        <Text style={{ fontSize: 11, color: '#898989' }}>
+                                            <SimpleLineIcons style={[{ color: '#898989' }]} size={12} name={'handbag'} /> {item.baggage}
+                                        </Text>
+                                    </Col>
+                                    <Col style={{ width: '30%' }}>
+                                        <Text style={{ fontSize: 11, color: '#898989' }}>
+                                            <MaterialCommunityIcons style={[{ color: '#898989' }]} size={12} name={'silverware-fork-knife'} /> Makanan
+                                        </Text>
+                                    </Col>
+                                    <Col style={{ alignItems: 'flex-end' }}>
+                                        <TouchableOpacity onPress={() => alert('Detail!')}>
+                                            <Text style={{ fontSize: 14, color: '#FF681B' }}>DETAIL</Text>
+                                        </TouchableOpacity>
+                                    </Col>
+                                </Grid>
+                            </Card>
+                        </TouchableOpacity>
+                    )}
+                />
+            )
+        }
+    }
+
     render() {
         return (
             <Container>
@@ -178,90 +274,7 @@ export default class ListAirplaneTicket extends Component {
                 </Header>
                 <Content>
                     <View style={styles.container}>
-                        <FlatList
-                            data={this.state.listAirplaneTicket}
-                            keyExtractor={(item) => item.id}
-                            renderItem={({ item, key }) => (
-                                <TouchableOpacity onPress={() => alert('Pesan Tiket Garuda!')}>
-                                    <Card style={styles.cardListAirplaneTicket}>
-                                        <Grid>
-                                            <Col style={{ width: '15%' }}>
-                                                <Image
-                                                    style={{ width: 20, height: 20 }}
-                                                    source={require('../../Assets/Images/garuda.png')}
-                                                />
-                                            </Col>
-                                            <Col>
-                                                <Text style={{ fontSize: 13 }}>
-                                                    {item.nameAirPlane}
-                                                </Text>
-                                            </Col>
-                                        </Grid>
-                                        <Grid>
-                                            <Col style={{ width: '20%' }}>
-                                                <Text style={{ fontSize: 13 }}>
-                                                    {item.departureTime}
-                                                </Text>
-                                            </Col>
-                                            <Col style={{ width: '22%' }}>
-                                                <Text style={{ fontSize: 13 }}>
-                                                    {item.travelTime}
-                                                </Text>
-                                            </Col>
-                                            <Col style={{ width: '20%' }}>
-                                                <Text style={{ fontSize: 13 }}>
-                                                    {item.arrivedTime}
-                                                </Text>
-                                            </Col>
-                                            <Col style={{ width: '30%' }}>
-                                                <Text style={{ fontSize: 13, color: '#ffa500' }}>
-                                                    {item.price}
-                                                </Text>
-                                            </Col>
-                                        </Grid>
-                                        <Grid>
-                                            <Col style={{ width: '20%' }}>
-                                                <Text style={{ fontSize: 13, color: '#898989' }}>
-                                                    {item.codeNameFromAirport}
-                                                </Text>
-                                            </Col>
-                                            <Col style={{ width: '22%' }}>
-                                                <Text style={{ fontSize: 13, color: '#898989' }}>
-                                                    {item.transit}
-                                                </Text>
-                                            </Col>
-                                            <Col style={{ width: '20%' }}>
-                                                <Text style={{ fontSize: 13, color: '#898989' }}>
-                                                    {item.codeNameToAirport}
-                                                </Text>
-                                            </Col>
-                                            <Col style={{ width: '30%' }}>
-                                                <Text style={{ fontSize: 13, color: '#898989' }}>
-                                                    {item.passenger}
-                                                </Text>
-                                            </Col>
-                                        </Grid>
-                                        <Grid style={{ marginTop: 10 }}>
-                                            <Col style={{ width: '20%' }}>
-                                                <Text style={{ fontSize: 11, color: '#898989' }}>
-                                                    <SimpleLineIcons style={[{ color: '#898989' }]} size={12} name={'handbag'} /> {item.baggage}
-                                                </Text>
-                                            </Col>
-                                            <Col style={{ width: '30%' }}>
-                                                <Text style={{ fontSize: 11, color: '#898989' }}>
-                                                    <MaterialCommunityIcons style={[{ color: '#898989' }]} size={12} name={'silverware-fork-knife'} /> {item.food}
-                                                </Text>
-                                            </Col>
-                                            <Col style={{ alignItems: 'flex-end' }}>
-                                                <TouchableOpacity onPress={() => alert('Detail!')}>
-                                                    <Text style={{ fontSize: 14, color: '#FF681B' }}>DETAIL</Text>
-                                                </TouchableOpacity>
-                                            </Col>
-                                        </Grid>
-                                    </Card>
-                                </TouchableOpacity>
-                            )}
-                        />
+                        {this.__renderListTicket()}
                     </View>
                 </Content>
 

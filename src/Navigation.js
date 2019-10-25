@@ -23,6 +23,10 @@ import FilterTrainTicket from "./Screen/Filter/FilterTrainTicket"
 import ListAirplaneTicket from './Screen/List/ListAirplaneTicket'
 import ListTrainTicket from './Screen/List/ListTrainTicket'
 import Payment from './Screen/Payment/PaymentScreen'
+import BookingTicketAirPlane from './Screen/Booking/BookingTicketAirPlane'
+import BookingTicketTrain from './Screen/Booking/BookingTicketTrain'
+import PassengerDataTrain from './Screen/PassengerData/PassengerDataTrain'
+import PassengerDataAirplane from './Screen/PassengerData/PassengerDataAirplane'
 
 
 const TabNavigation = createMaterialBottomTabNavigator(
@@ -123,6 +127,18 @@ const MainNavigation = createStackNavigator(
 		},
 		Payment: {
 			screen: Payment
+    },
+		BookingTicketAirPlane: {
+			screen: BookingTicketAirPlane
+		},
+		BookingTicketTrain: {
+			screen: BookingTicketTrain
+		},
+		PassengerDataTrain: {
+			screen: PassengerDataTrain
+		},
+		PassengerDataAirplane: {
+			screen: PassengerDataAirplane
 		},
 	},
 	{
