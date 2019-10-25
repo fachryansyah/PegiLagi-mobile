@@ -15,7 +15,8 @@ import {
 	Right,
 	Body,
 	Text,
-	Card
+	Card,
+	Spinner
 } from 'native-base'
 import Dash from 'react-native-dash'
 import { connect } from 'react-redux'
@@ -24,15 +25,63 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Slideshow from '../Components/Slideshow'
 import TravelTips from '../Components/TravelTips'
+import Http from '../Helpers/Http'
 
 class HomeScreen extends Component {
 
 	constructor(props){
 		super(props)
 		this.state = {
-			isLoading: false
+			isLoading: true,
+			travelTips: [],
+			promotions: []
 		}
 	}
+
+	componentDidMount(){
+		this.getDataTravelTips()
+		this.getDataPromo()
+    }
+
+	async getDataTravelTips(){
+		this.setState({
+			isLoading: true
+		})
+        await Http.get('/article/traveltips')
+        .then((res) => {
+            console.log(res.data.data)
+            this.setState({
+				travelTips: res.data.data,
+				isLoading: false
+            })
+        })
+        .catch((err) => {
+			console.log(err.message)
+			this.setState({
+				isLoading: false
+			})
+        })
+	}
+	
+	async getDataPromo(){
+		this.setState({
+			isLoading: true
+		})
+        await Http.get('/article/promotion')
+        .then((res) => {
+            console.log(res.data.data)
+            this.setState({
+				promotions: res.data.data,
+				isLoading: false
+            })
+        })
+        .catch((err) => {
+			console.log(err.message)
+			this.setState({
+				isLoading: false
+			})
+        })
+    }
 
 	render() {
 		return (
@@ -87,7 +136,7 @@ class HomeScreen extends Component {
 								</TouchableOpacity>
 							</Content>
 						</Content>
-						<Slideshow />
+						{this.state.isLoading ? <Spinner color='#f97432' /> : <Slideshow data={this.state.promotions} navigate={this.props.navigation.navigate} /> }
 					</Content>
 
 					<Dash style={{ width: '100%', height: 1, marginVertical: 12 }} dashColor='#d9d9d9' />
@@ -107,7 +156,7 @@ class HomeScreen extends Component {
 								</TouchableOpacity>
 							</Content>
 						</Content>
-						<TravelTips />
+						{this.state.isLoading ? <Spinner color='#f97432' /> : <TravelTips data={this.state.travelTips} navigate={this.props.navigation.navigate} />}
 					</Content>
 
 					<Dash style={{ width: '100%', height: 1, marginTop: 22 }} dashColor='#d9d9d9' />

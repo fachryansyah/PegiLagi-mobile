@@ -4,7 +4,8 @@ import {
     FlatList,
     StyleSheet,
     Image,
-    Dimensions
+    Dimensions,
+    TouchableOpacity
 } from 'react-native'
 import {
     Text,
@@ -68,11 +69,13 @@ export default class Slideshow extends Component {
                 <Content contentContainerStyle={{ alignItems: 'center', marginTop: 16 }}>
                     <Carousel
                         ref={(c) => { this._carousel = c; }}
-                        data={this.state.slideshow}
+                        data={this.props.data}
                         renderItem={({ item, key }) => (
-                            <Content contentContainerStyle={styles.container}>
-                                <Image source={item.image} style={styles.image} />
-                            </Content>
+                            <TouchableOpacity onPress={() => this.props.navigate('WebViewScreen', {url: item.url, title: item.title})} activeOpacity={0.7}>
+                                <Content contentContainerStyle={styles.container}>
+                                    <Image source={{ uri: item.image }} style={styles.image} />
+                                </Content>
+                            </TouchableOpacity>
                         )}
                         sliderWidth={SCREEN_WIDTH}
                         itemWidth={SCREEN_WIDTH * 0.7}

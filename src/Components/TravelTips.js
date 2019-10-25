@@ -4,7 +4,8 @@ import {
     FlatList,
     StyleSheet,
     Image,
-    Dimensions
+    Dimensions,
+    TouchableOpacity
 } from 'react-native'
 import {
     Text,
@@ -46,13 +47,15 @@ export default class TravelTips extends Component {
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                         ref={(c) => { this._carousel = c; }}
-                        data={this.state.slideshow}
+                        data={this.props.data}
                         renderItem={({ item, key }) => (
-                            <Content contentContainerStyle={styles.container}>
-                                <Image source={require('../Assets/Images/slide4.jpg')} style={styles.image} />
-                                <Text style={styles.textCategory}>Rekomendasi</Text>
-                                <Text style={styles.textDescription}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
-                            </Content>
+                            <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigate('WebViewScreen', {url: item.url, title: item.title})}>
+                                <Content contentContainerStyle={styles.container}>
+                                    <Image source={{ uri: item.image }} style={styles.image} />
+                                    <Text style={styles.textCategory}>{item.category}</Text>
+                                    <Text style={styles.textDescription}>{item.title}</Text>
+                                </Content>
+                            </TouchableOpacity>
                         )}
                         keyExtractor={(item) => item.id}
                     />
