@@ -33,6 +33,7 @@ import ChangeEmail from './Screen/ChangeEmail'
 import ChangePersonalData from './Screen/ChangePersonalData'
 import HistoryTicketTrain from './Screen/History/HistoryTicketTrain'
 import HistoryTicketAirplane from './Screen/History/HistoryTicketAirplane'
+import WebViewScreen from './Screen/WebViewScreen'
 
 const TabNavigation = createMaterialBottomTabNavigator(
 	{
@@ -166,6 +167,9 @@ const MainNavigation = createStackNavigator(
 		HistoryTicketAirplane: {
 			screen: HistoryTicketAirplane
 		},
+		WebViewScreen: {
+			screen: WebViewScreen
+		}
 	},
 	{
 		headerMode: 'none',

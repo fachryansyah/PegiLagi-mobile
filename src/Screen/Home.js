@@ -13,17 +13,40 @@ import {
     Grid,
     Button,
     Left,
+    Spinner,
     Icon
 } from 'native-base';
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Dash from 'react-native-dash'
+import Http from '../Helpers/Http'
+
 export default class BookingTicketTrain extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
+            isLoading: true,
+            promotions: [],
+            travelTips: []
         }
+    }
+
+    componentDidMount(){
+        this.getDataTravelTips()
+    }
+
+    async getDataTravelTips(){
+        await Http.get('/article/traveltips')
+        .then((res) => {
+            console.log(res.data.data)
+            this.setState({
+                travelTips: res.data.data
+            })
+        })
+        .catch((err) => {
+            console.log(err.message)
+        })
     }
 
     render() {

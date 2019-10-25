@@ -39,6 +39,8 @@ target 'PegiLagiMobile' do
 
   pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
 
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
   target 'PegiLagiMobileTests' do
     inherit! :search_paths
     # Pods for testing
