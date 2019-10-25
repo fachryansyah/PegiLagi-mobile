@@ -65,7 +65,7 @@ export default class BookingTicketTrain extends Component {
                                 <Col style={{ width: '80%' }}>
                                     <Text style={{ color: '#4d4f44' }}>
                                         <MaterialCommunityIcons style={[{ color: '#f97432' }]} size={16} name={'train'} /> Gambir <MaterialCommunityIcons size={15} name={'arrow-right'} /> Yogyakarta
-                                </Text>
+                                    </Text>
                                 </Col>
                                 <Col style={{ alignItems: 'flex-end' }}>
                                     <TouchableOpacity onPress={() => alert('Detail!')}>

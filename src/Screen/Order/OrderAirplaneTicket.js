@@ -75,8 +75,8 @@ export default class OrderAirPlaneTicket extends Component {
         })
     }
 
-    gotoSearchAirport(){
-        this.props.navigation.navigate('ListAirplaneTicket',{
+    gotoSearchAirport() {
+        this.props.navigation.navigate('ListAirplaneTicket', {
             from_airport_id: this.state.from_airport_id,
             to_airport_id: this.state.to_airport_id,
             departure_time: this.state.departure_time
@@ -189,7 +189,7 @@ export default class OrderAirPlaneTicket extends Component {
                 <Container style={styles.body}>
                     <Header style={styles.header} androidStatusBarColor='#f97432' noShadow={true}>
                         <Left>
-                            <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
+                            <Button transparent onPress={() => this.props.navigation.goBack(null)}>
                                 <Icon name='arrow-back' />
                             </Button>
                         </Left>
@@ -281,7 +281,7 @@ export default class OrderAirPlaneTicket extends Component {
                     </Content>
 
                     <View style={styles.lastSeen}>
-                        <Button light iconLeft style={{ borderRadius: 6 }} onPress={() => alert('test')}>
+                        <Button light iconLeft style={{ borderRadius: 6 }} onPress={() => this.props.navigation.navigate('HistoryTicketAirplane')}>
                             <Text style={{ color: '#696969' }}>Terakhir dilihat</Text>
                         </Button>
                     </View>
