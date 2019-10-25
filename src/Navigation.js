@@ -22,6 +22,7 @@ import FilterAirplaneTicket from "./Screen/Filter/FilterAirplaneTicket"
 import FilterTrainTicket from "./Screen/Filter/FilterTrainTicket"
 import ListAirplaneTicket from './Screen/List/ListAirplaneTicket'
 import ListTrainTicket from './Screen/List/ListTrainTicket'
+import Payment from './Screen/Payment/PaymentScreen'
 import BookingTicketAirPlane from './Screen/Booking/BookingTicketAirPlane'
 import BookingTicketTrain from './Screen/Booking/BookingTicketTrain'
 import PassengerDataTrain from './Screen/PassengerData/PassengerDataTrain'
@@ -124,6 +125,9 @@ const MainNavigation = createStackNavigator(
 		ListTrainTicket: {
 			screen: ListTrainTicket
 		},
+		Payment: {
+			screen: Payment
+    },
 		BookingTicketAirPlane: {
 			screen: BookingTicketAirPlane
 		},
