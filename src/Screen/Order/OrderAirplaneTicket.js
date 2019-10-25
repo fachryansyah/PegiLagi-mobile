@@ -22,6 +22,8 @@ import {
     DatePicker,
     Icon
 } from 'native-base'
+import { connect } from 'react-redux'
+import { setPassanger } from '../../Redux/Actions/Booking'
 import { NavigationEvents } from 'react-navigation'
 import Dash from 'react-native-dash'
 import Modal from 'react-native-modalbox'
@@ -31,7 +33,7 @@ import ScrollPicker from 'react-native-wheel-scroll-picker'
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 
-export default class OrderAirPlaneTicket extends Component {
+class OrderAirPlaneTicket extends Component {
 
     constructor(props) {
         super(props)
@@ -52,10 +54,10 @@ export default class OrderAirPlaneTicket extends Component {
                 1, 2, 3, 4, 5, 6, 7
             ],
             kids: [
-                0, 1, 2, 3, 4, 5, 6,
+                0, 1, 2, 3, 4, 5, 6, 7
             ],
             babies: [
-                0, 1, 2, 3, 4
+                0, 1, 2, 3, 4, 5, 6, 7
             ]
         }
     }
@@ -75,7 +77,12 @@ export default class OrderAirPlaneTicket extends Component {
         })
     }
 
-    gotoSearchAirport() {
+    async gotoSearchAirport() {
+        await this.props.dispatch(setPassanger({
+            adults: this.state.numberOfAdults,
+            kids: this.state.numberOfKids,
+            babies: this.state.numberOfBabies
+        }))
         this.props.navigation.navigate('ListAirplaneTicket', {
             from_airport_id: this.state.from_airport_id,
             to_airport_id: this.state.to_airport_id,
@@ -108,15 +115,14 @@ export default class OrderAirPlaneTicket extends Component {
                             </View>
                             <ScrollPicker
                                 dataSource={this.state.adults}
-                                selectedIndex={1}
+                                selectedIndex={0}
                                 renderItem={(data, index, isSelected) => {
                                     //
                                 }}
                                 onValueChange={async (data, selectedIndex) => {
                                     await this.setState({
-                                        numberOfAdults: this.state.adults[selectedIndex]
+                                        numberOfAdults: data
                                     })
-                                    console.log(this.state.numberOfAdults)
                                 }}
                                 wrapperHeight={140}
                                 wrapperWidth={150}
@@ -134,15 +140,14 @@ export default class OrderAirPlaneTicket extends Component {
                             </View>
                             <ScrollPicker
                                 dataSource={this.state.kids}
-                                selectedIndex={1}
+                                selectedIndex={0}
                                 renderItem={(data, index, isSelected) => {
                                     //
                                 }}
                                 onValueChange={async (data, selectedIndex) => {
                                     await this.setState({
-                                        numberOfKids: this.state.kids[selectedIndex]
+                                        numberOfKids: data
                                     })
-                                    console.log(this.state.numberOfKids)
                                 }}
                                 wrapperHeight={140}
                                 wrapperWidth={150}
@@ -160,15 +165,14 @@ export default class OrderAirPlaneTicket extends Component {
                             </View>
                             <ScrollPicker
                                 dataSource={this.state.babies}
-                                selectedIndex={1}
+                                selectedIndex={0}
                                 renderItem={(data, index, isSelected) => {
                                     //
                                 }}
                                 onValueChange={async (data, selectedIndex) => {
                                     await this.setState({
-                                        numberOfBabies: this.state.babies[selectedIndex]
+                                        numberOfBabies: data
                                     })
-                                    console.log(this.state.numberOfBabies)
                                 }}
                                 wrapperHeight={140}
                                 wrapperWidth={150}
@@ -263,7 +267,7 @@ export default class OrderAirPlaneTicket extends Component {
                             <View style={{ padding: 12, alignItems: 'center' }}>
                                 <TouchableOpacity onPress={() => this.refs.modal.open()} style={{ alignItems: 'center' }}>
                                     <Text style={styles.textTitle}>Penumpang</Text>
-                                    <Text style={styles.textValue}>1 Dewasa, 0 Bayi</Text>
+                                    <Text style={styles.textValue}>{this.state.numberOfAdults} Dewasa, {this.state.numberOfKids} Anak -anak , {this.state.numberOfBabies} Bayi</Text>
                                 </TouchableOpacity>
                             </View>
 
@@ -323,3 +327,11 @@ const styles = StyleSheet.create({
         height: 250
     },
 })
+
+const mapStateToProps = state => {
+    return {
+        booking: state.Booking
+    }
+}
+
+export default connect(mapStateToProps)(OrderAirPlaneTicket)

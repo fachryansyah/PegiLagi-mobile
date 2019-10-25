@@ -20,6 +20,8 @@ import {
     Card,
     Spinner
 } from 'native-base';
+import { connect } from 'react-redux'
+import { getPassanger } from '../../Redux/Actions/Booking'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import Moment from 'moment-timezone'
@@ -27,7 +29,7 @@ import Http from '../../Helpers/Http'
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 
-export default class ListAirplaneTicket extends Component {
+class ListAirplaneTicket extends Component {
 
     constructor(props) {
         super(props)
@@ -49,72 +51,7 @@ export default class ListAirplaneTicket extends Component {
                     passenger: 'per orang',
                     baggage: '20 kg',
                     food: 'Makanan'
-                },
-                {
-                    nameAirPlane: 'Garuda Indonesia',
-                    departureTime: '14:00',
-                    travelTime: '1j 40m',
-                    arrivedTime: '15:40',
-                    price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
-                    codeNameToAirport: 'BTJ',
-                    passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
-                },
-                {
-                    nameAirPlane: 'Garuda Indonesia',
-                    departureTime: '14:00',
-                    travelTime: '1j 40m',
-                    arrivedTime: '15:40',
-                    price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
-                    codeNameToAirport: 'BTJ',
-                    passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
-                },
-                {
-                    nameAirPlane: 'Garuda Indonesia',
-                    departureTime: '14:00',
-                    travelTime: '1j 40m',
-                    arrivedTime: '15:40',
-                    price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
-                    codeNameToAirport: 'BTJ',
-                    passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
-                },
-                {
-                    nameAirPlane: 'Garuda Indonesia',
-                    departureTime: '14:00',
-                    travelTime: '1j 40m',
-                    arrivedTime: '15:40',
-                    price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
-                    codeNameToAirport: 'BTJ',
-                    passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
-                },
-                {
-                    nameAirPlane: 'Garuda Indonesia',
-                    departureTime: '14:00',
-                    travelTime: '1j 40m',
-                    arrivedTime: '15:40',
-                    price: 'Rp 1.418.700',
-                    codeNameFromAirport: 'CGK',
-                    transit: 'Langsung',
-                    codeNameToAirport: 'BTJ',
-                    passenger: 'per orang',
-                    baggage: '20 kg',
-                    food: 'Makanan'
-                },
+                }
             ]
         }
     }
@@ -134,16 +71,16 @@ export default class ListAirplaneTicket extends Component {
 
     async getTicketData(from, to, date) {
         await Http.get(`/plane-ticket/search?from=${from}&to=${to}&date=${date}`)
-            .then((res) => {
-                console.log(res.data.data.results)
-                this.setState({
-                    tickets: res.data.data.results,
-                    isLoading: false
-                })
+        .then((res) => {
+            console.log(res.data.data.results)
+            this.setState({
+                tickets: res.data.data.results,
+                isLoading: false
             })
-            .catch((err) => {
-                console.log(err.message)
-            })
+        })
+        .catch((err) => {
+            console.log(err.message)
+        })
     }
 
     __renderListTicket() {
@@ -159,7 +96,7 @@ export default class ListAirplaneTicket extends Component {
                     data={this.state.tickets}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item, key }) => (
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('BookingTicketAirPlane')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('BookingTicketAirPlane', { ticket: item })}>
                             <Card style={styles.cardListAirplaneTicket}>
                                 <Grid>
                                     <Col style={{ width: '15%' }}>
@@ -331,3 +268,11 @@ const styles = StyleSheet.create({
         paddingBottom: 5
     }
 })
+
+const mapStateToString = state => {
+    return {
+        booking: state.Booking
+    }
+}
+
+export default connect(mapStateToString)(ListAirplaneTicket)

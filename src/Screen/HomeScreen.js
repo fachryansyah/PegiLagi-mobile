@@ -21,6 +21,7 @@ import {
 import Dash from 'react-native-dash'
 import { connect } from 'react-redux'
 import { authenticate } from '../Redux/Actions/Auth'
+import { resetBooking } from '../Redux/Actions/Booking'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Slideshow from '../Components/Slideshow'
@@ -81,7 +82,12 @@ class HomeScreen extends Component {
 				isLoading: false
 			})
         })
-    }
+	}
+	
+	async orderAirplanTicket(){
+		await this.props.dispatch(resetBooking())
+		this.props.navigation.navigate('OrderAirplaneTicket')
+	}
 
 	render() {
 		return (
@@ -105,7 +111,7 @@ class HomeScreen extends Component {
 									</Content>
 									<Text style={styles.buttonActionText}>HOTEL</Text>
 								</TouchableOpacity>
-								<TouchableOpacity onPress={() => this.props.navigation.navigate('OrderAirplaneTicket')} style={styles.buttonAction}>
+								<TouchableOpacity onPress={() => this.orderAirplanTicket()} style={styles.buttonAction}>
 									<Content contentContainerStyle={styles.buttonActionOverlay}>
 										<FontAwesomeIcon style={{ color: '#f5b7b3' }} size={35} name={'plane'} />
 									</Content>
