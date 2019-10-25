@@ -144,7 +144,7 @@ export default class ListTrainTicket extends Component {
                 <Header style={styles.header} androidStatusBarColor='#f97432' noShadow={true}>
                     <Grid>
                         <Col style={{ width: '15%' }}>
-                            <Button transparent onPress={() => this.props.navigation.navigate('OrderTrainTicket')}>
+                            <Button transparent onPress={() => this.props.navigation.goBack(null)}>
                                 < Left >
                                     <Icon name='arrow-back' style={{ color: '#ffff' }} />
                                 </Left>
