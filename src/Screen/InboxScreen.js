@@ -5,7 +5,8 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
-  Image
+  Image,
+  RefreshControl
 } from 'react-native'
 import {
   Container,
@@ -19,12 +20,13 @@ import {
   Grid
 } from 'native-base';
 import { black } from 'ansi-colors';
+import Http from '../Helpers/Http';
 export default class InboxScreen extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-
+      isLoading: true,
       inbox: [
         {
           titleHeader: 'Pengen Diskon Tiket Pesawat & Hotel s.d. 60%?',
@@ -75,13 +77,36 @@ export default class InboxScreen extends Component {
     }
   }
 
+  componentDidMount(){
+    this.getPromotion()
+  }
+
+  async getPromotion(){
+    await Http.get('/article/promotion')
+    .then((res) => {
+      this.setState({
+        inbox: res.data.data,
+        isLoading: false
+      })
+    })
+    .catch((err) => {
+      console.log(err)
+      this.setState({
+        isLoading: false
+      })
+    })
+  }
+
   __renderInbox() {
     return (
       <FlatList
         data={this.state.inbox}
         keyExtractor={(item) => item.id}
+        refreshControl={
+          <RefreshControl refreshing={this.state.isLoading} onRefresh={() => this.getPromotion()} />
+        }
         renderItem={({ item, key }) => (
-          <TouchableOpacity onPress={() => alert('Woi!!!')}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('WebViewScreen', {url: item.url, title: item.title})}>
             <Grid>
               <Col style={styles.colInbox}>
                 <Grid>
@@ -92,13 +117,13 @@ export default class InboxScreen extends Component {
                   </Col>
                   <Col style={styles.colInboxText}>
                     <Text style={{ fontSize: 14, marginBottom: 5 }}>
-                      {item.titleHeader}
+                      {item.title}
                     </Text>
                     <Text style={styles.inboxTextDetail}>
-                      {item.titleBody}
+                      {item.category}
                     </Text>
                     <Text style={styles.inboxTextDetail}>
-                      {item.titleFooter}
+                      2 jam yang lalu
                     </Text>
                   </Col>
                 </Grid>
