@@ -18,12 +18,22 @@ import {
 	Card
 } from 'native-base'
 import Dash from 'react-native-dash'
+import { connect } from 'react-redux'
+import { authenticate } from '../Redux/Actions/Auth'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Slideshow from '../Components/Slideshow'
 import TravelTips from '../Components/TravelTips'
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
+
+	constructor(props){
+		super(props)
+		this.state = {
+			isLoading: false
+		}
+	}
+
 	render() {
 		return (
 			<Container>
@@ -200,3 +210,11 @@ const styles = StyleSheet.create({
 	}
 
 })
+
+const mapStateToProps = state => {
+	return {
+		auth: state.Auth
+	}
+}
+
+export default connect(mapStateToProps)(HomeScreen)

@@ -14,46 +14,19 @@ import {
 	Button
 } from 'native-base'
 import Dash from 'react-native-dash'
+import { connect } from 'react-redux'
 import IoniconsIcon from 'react-native-vector-icons/Ionicons'
 import FontistoIcon from 'react-native-vector-icons/Fontisto'
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 
-export default class OrderScreen extends Component {
+class OrderScreen extends Component {
 
 	constructor(props) {
 		super(props)
 		this.state = {
 			isLogin: false,
 			booking: [
-				{
-					order_no: 'ASJYR346J235GGH',
-					from: 'Jakarta',
-					to: 'Yogyakarta',
-					departure_time: 'Rabu 23 okt 19',
-					arrived_time: 'Rabu 23 okt 19'
-				},
-				{
-					order_no: 'ASJYR346J235GGH',
-					from: 'Jakarta',
-					to: 'Yogyakarta',
-					departure_time: 'Rabu 23 okt 19',
-					arrived_time: 'Rabu 23 okt 19'
-				},
-				{
-					order_no: 'ASJYR346J235GGH',
-					from: 'Jakarta',
-					to: 'Yogyakarta',
-					departure_time: 'Rabu 23 okt 19',
-					arrived_time: 'Rabu 23 okt 19'
-				},
-				{
-					order_no: 'ASJYR346J235GGH',
-					from: 'Jakarta',
-					to: 'Yogyakarta',
-					departure_time: 'Rabu 23 okt 19',
-					arrived_time: 'Rabu 23 okt 19'
-				},
 				{
 					order_no: 'ASJYR346J235GGH',
 					from: 'Jakarta',
@@ -174,7 +147,7 @@ export default class OrderScreen extends Component {
 							activeTabStyle
 						>
 							<View style={{ height: SCREEN_HEIGHT * 0.71 }}>
-								{this.state.isLogin ? this.__renderLogin() : this.__renderNotLogin()}
+								{this.props.auth.isAuthenticate ? this.__renderLogin() : this.__renderNotLogin()}
 							</View>
 						</Tab>
 						<Tab
@@ -272,3 +245,11 @@ const styles = StyleSheet.create({
 		marginLeft: 5
 	}
 })
+
+const mapStateToProps = state => {
+	return {
+		auth: state.Auth
+	}
+}
+
+export default connect(mapStateToProps)(OrderScreen)

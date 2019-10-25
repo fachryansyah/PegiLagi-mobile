@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import MainNavigation from './src/Navigation';
 import OneSignal from 'react-native-onesignal'
+import { Provider } from 'react-redux'
+import Store from './src/Redux/store'
 
 class App extends Component {
   constructor(props){
@@ -33,7 +35,11 @@ class App extends Component {
   }
   
   render() {
-    return <MainNavigation />;
+    return (
+      <Provider store={Store}>
+        <MainNavigation />
+      </Provider>
+    );
   }
 }
 

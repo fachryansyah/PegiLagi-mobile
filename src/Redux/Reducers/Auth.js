@@ -1,14 +1,15 @@
 const initialState = {
     isAuthenticate: false,
     user: {
-        firstname: '',
-        lastname: '',
-        email: ''
+        fullname: '',
+        email: '',
+        apiKey: '',
+        avatar: ''
     }
 }
 
 const auth = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case 'GET_USER':
             return {
                 ...state,
@@ -20,7 +21,17 @@ const auth = (state = initialState, action) => {
                 isAuthenticate: true,
                 user: action.payload
             }
-        default: 
+        case 'LOGOUT':
+            return {
+                isAuthenticate: false,
+                user: {
+                    fullname: '',
+                    email: '',
+                    apiKey: '',
+                    avatar: ''
+                }
+            }
+        default:
             return state
     }
 }

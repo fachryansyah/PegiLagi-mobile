@@ -130,7 +130,7 @@ const MainNavigation = createStackNavigator(
 		},
 		Payment: {
 			screen: Payment
-    },
+    	},
 		BookingTicketAirPlane: {
 			screen: BookingTicketAirPlane
 		},
