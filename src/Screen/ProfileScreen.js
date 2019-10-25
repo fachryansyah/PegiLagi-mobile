@@ -25,7 +25,7 @@ export default class ProfileScreen extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isLogin: false
+            isLogin: true
         }
     }
 
@@ -38,7 +38,7 @@ export default class ProfileScreen extends Component {
                             <Text style={styles.textColHeader}>Daftar dan nikmati berbagai promo khusus member, sekarang!</Text>
                             <Grid>
                                 <Col>
-                                    <TouchableOpacity style={styles.btnRegister} onPress={() => alert('Selamat, Register!')}>
+                                    <TouchableOpacity style={styles.btnRegister} onPress={() => this.props.navigation.navigate("Register")}>
                                         <Text style={{ color: '#ffff', textAlign: 'center' }}>REGISTER</Text>
                                     </TouchableOpacity>
                                     <Grid>
@@ -52,7 +52,7 @@ export default class ProfileScreen extends Component {
                                     </Grid>
                                     <Grid>
                                         <Col>
-                                            <TouchableOpacity style={styles.btnLogin} onPress={() => alert('Selamat, Login!')}>
+                                            <TouchableOpacity style={styles.btnLogin} onPress={() => this.props.navigation.navigate("Login")}>
                                                 <Text style={{ color: '#f97432', textAlign: 'center' }}>LOGIN</Text>
                                             </TouchableOpacity>
                                         </Col>
@@ -165,7 +165,7 @@ export default class ProfileScreen extends Component {
                                     </Text>
                                 </Col>
                                 <Col style={styles.colIconRight2}>
-                                    <TouchableOpacity onPress={() => alert('Ubah sendiri lah!')}>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeProfil')}>
                                         <Text style={{ color: '#f97432', fontSize: 14 }}>UBAH</Text>
                                     </TouchableOpacity>
                                 </Col>

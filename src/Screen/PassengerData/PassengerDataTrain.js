@@ -48,7 +48,7 @@ export default class PassengerDataTrain extends Component {
                 <Header style={styles.header} androidStatusBarColor='#f97432' noShadow={true}>
                     <Grid>
                         <Col style={{ width: '15%' }}>
-                            <Button transparent onPress={() => this.props.navigation.navigate('BookingTicketTrain')}>
+                            <Button transparent onPress={() => this.props.navigation.goBack(null)}>
                                 <Left>
                                     <Icon name='close' style={{ color: '#ffff' }} />
                                 </Left>

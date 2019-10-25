@@ -27,7 +27,10 @@ import BookingTicketAirPlane from './Screen/Booking/BookingTicketAirPlane'
 import BookingTicketTrain from './Screen/Booking/BookingTicketTrain'
 import PassengerDataTrain from './Screen/PassengerData/PassengerDataTrain'
 import PassengerDataAirplane from './Screen/PassengerData/PassengerDataAirplane'
-
+import HomeProfil from './Screen/Home'
+import ChangePassword from './Screen/ChangePassword'
+import ChangeEmail from './Screen/ChangeEmail'
+import ChangePersonalData from './Screen/ChangePersonalData'
 
 const TabNavigation = createMaterialBottomTabNavigator(
 	{
@@ -139,6 +142,21 @@ const MainNavigation = createStackNavigator(
 		},
 		PassengerDataAirplane: {
 			screen: PassengerDataAirplane
+		},
+		HomeProfil: {
+			screen: HomeProfil
+		},
+		ProfileScreen: {
+			screen: ProfileScreen
+		},
+		ChangePassword: {
+			screen: ChangePassword
+		},
+		ChangeEmail: {
+			screen: ChangeEmail
+		},
+		ChangePersonalData: {
+			screen: ChangePersonalData
 		},
 	},
 	{

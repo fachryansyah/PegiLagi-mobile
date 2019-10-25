@@ -38,7 +38,7 @@ export default class RegisterScreen extends Component {
             <Container>
                 <Header style={styles.header} androidStatusBarColor='#f97432'>
                     <Left>
-                        <Button transparent>
+                        <Button transparent onPress={() => this.props.navigation.goBack(null)}>
                             <Icon name='close' />
                         </Button>
                     </Left>
@@ -77,7 +77,7 @@ export default class RegisterScreen extends Component {
                                         <Input />
                                     </Item>
                                     <Item floatingLabel>
-                                        <Label style={styles.labelForm}>Passowrd</Label>
+                                        <Label style={styles.labelForm}>Password</Label>
                                         <Input secureTextEntry={true} />
                                     </Item>
                                     <Item floatingLabel>

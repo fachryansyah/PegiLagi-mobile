@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Dash from 'react-native-dash'
 import { StyleSheet, View, Text } from 'react-native'
-import { Container, Header, Body, Content, Form, Title, Item, Input, Label, Button, Icon,Left, Right } from 'native-base';
+import { Container, Header, Body, Content, Form, Title, Item, Input, Label, Button, Icon, Left, Right } from 'native-base';
 
 export default class LoginScreen extends Component {
     render() {
@@ -9,7 +9,7 @@ export default class LoginScreen extends Component {
             <Container>
                 <Header style={styles.header} androidStatusBarColor='#f97432'>
                     <Left>
-                        <Button transparent>
+                        <Button transparent onPress={() => this.props.navigation.goBack(null)}>
                             <Icon name='close' />
                         </Button>
                     </Left>
