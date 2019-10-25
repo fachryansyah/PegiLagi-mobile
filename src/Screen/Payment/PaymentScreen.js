@@ -27,7 +27,7 @@ export default class PaymentScreen extends Component {
             <Container>
                 <Header style={styles.header} androidStatusBarColor='#f97432'>
                     <Left>
-                        <Button transparent>
+                        <Button transparent onPress={() => this.props.navigation.goBack(null)}>
                             <Icon name='close' />
                         </Button>
                     </Left>

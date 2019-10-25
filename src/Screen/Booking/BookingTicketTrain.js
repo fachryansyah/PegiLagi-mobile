@@ -27,7 +27,6 @@ export default class BookingTicketTrain extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isRoundTrip: false,
         }
     }
 
@@ -133,10 +132,10 @@ export default class BookingTicketTrain extends Component {
                             </View>
                         </TouchableOpacity>
                         <View style={{ backgroundColor: '#f5fafd', padding: 20 }}>
-                            <TouchableOpacity onPress={() => alert('PILIH KURSI!')} style={{ backgroundColor: '#ffff', borderColor: '#f97432', marginTop: 15 }}>
+                            {/* <TouchableOpacity onPress={() => alert('PILIH KURSI!')} style={{ backgroundColor: '#ffff', borderColor: '#f97432', marginTop: 15 }}>
                                 <Text style={{ fontSize: 16, color: '#f97432', textAlign: "center", paddingVertical: 10 }}>PILIH KURSI</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => alert('LANJUT KE PEMBAYARAN!')} style={{ backgroundColor: '#f97432', marginTop: 15 }}>
+                            </TouchableOpacity> */}
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('Payment')} style={{ backgroundColor: '#f97432', marginTop: 15 }}>
                                 <Text style={{ fontSize: 16, color: '#ffff', textAlign: "center", paddingVertical: 10 }}>LANJUT KE PEMBAYARAN</Text>
                             </TouchableOpacity>
                         </View>
