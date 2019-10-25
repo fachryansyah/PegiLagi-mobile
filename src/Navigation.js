@@ -22,18 +22,23 @@ import FilterAirplaneTicket from "./Screen/Filter/FilterAirplaneTicket"
 import FilterTrainTicket from "./Screen/Filter/FilterTrainTicket"
 import ListAirplaneTicket from './Screen/List/ListAirplaneTicket'
 import ListTrainTicket from './Screen/List/ListTrainTicket'
+import ListHotel from './Screen/List/ListHotel'
 import Payment from './Screen/Payment/PaymentScreen'
 import BookingTicketAirPlane from './Screen/Booking/BookingTicketAirPlane'
 import BookingTicketTrain from './Screen/Booking/BookingTicketTrain'
+import BookingHotel from './Screen/Booking/BookingHotel'
 import PassengerDataTrain from './Screen/PassengerData/PassengerDataTrain'
 import PassengerDataAirplane from './Screen/PassengerData/PassengerDataAirplane'
+import PassengerDataHotel from './Screen/PassengerData/PassengerDataHotel'
 import HomeProfil from './Screen/Home'
 import ChangePassword from './Screen/ChangePassword'
 import ChangeEmail from './Screen/ChangeEmail'
 import ChangePersonalData from './Screen/ChangePersonalData'
 import HistoryTicketTrain from './Screen/History/HistoryTicketTrain'
 import HistoryTicketAirplane from './Screen/History/HistoryTicketAirplane'
+import HistoryHotel from './Screen/History/HistoryHotel'
 import WebViewScreen from './Screen/WebViewScreen'
+import ForgotPassword from './Screen/ForgotPassword'
 
 const TabNavigation = createMaterialBottomTabNavigator(
 	{
@@ -131,6 +136,9 @@ const MainNavigation = createStackNavigator(
 		ListTrainTicket: {
 			screen: ListTrainTicket
 		},
+		ListHotel: {
+			screen: ListHotel
+		},
 		Payment: {
 			screen: Payment
 		},
@@ -140,11 +148,17 @@ const MainNavigation = createStackNavigator(
 		BookingTicketTrain: {
 			screen: BookingTicketTrain
 		},
+		BookingHotel: {
+			screen: BookingHotel
+		},
 		PassengerDataTrain: {
 			screen: PassengerDataTrain
 		},
 		PassengerDataAirplane: {
 			screen: PassengerDataAirplane
+		},
+		PassengerDataHotel: {
+			screen: PassengerDataHotel
 		},
 		HomeProfil: {
 			screen: HomeProfil
@@ -167,8 +181,14 @@ const MainNavigation = createStackNavigator(
 		HistoryTicketAirplane: {
 			screen: HistoryTicketAirplane
 		},
+		HistoryHotel: {
+			screen: HistoryHotel
+		},
 		WebViewScreen: {
 			screen: WebViewScreen
+		},
+		ForgotPassword:{
+			screen: ForgotPassword
 		}
 	},
 	{
