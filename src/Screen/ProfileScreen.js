@@ -110,10 +110,10 @@ class ProfileScreen extends Component {
                                     <Col style={styles.colText}>
                                         <Text style={{ color: '#4d4f44', fontSize: 17 }}>
                                             Pusat Bantuan
-                                    </Text>
+                                        </Text>
                                         <Text style={{ color: '#898989', fontSize: 15 }}>
                                             Kami siap membantu Anda
-                                    </Text>
+                                        </Text>
                                     </Col>
                                     <Col style={styles.colIconRight}>
                                         <FontAwesomeIcons style={[{ color: '#f97432' }]} size={15} name={'chevron-right'} />

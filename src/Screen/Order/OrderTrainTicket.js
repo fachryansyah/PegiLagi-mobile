@@ -38,7 +38,7 @@ export default class OrderTrainTicket extends Component {
                 <Container style={styles.body}>
                     <Header style={styles.header} androidStatusBarColor='#f97432' noShadow={true}>
                         <Left>
-                            <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
+                            <Button transparent onPress={() => this.props.navigation.goBack(null)}>
                                 <Icon name='arrow-back' />
                             </Button>
                         </Left>
@@ -111,7 +111,7 @@ export default class OrderTrainTicket extends Component {
                     </Content>
 
                     <View style={styles.lastSeen}>
-                        <Button light iconLeft style={{ borderRadius: 6 }} onPress={() => alert('test')}>
+                        <Button light iconLeft style={{ borderRadius: 6 }} onPress={() => this.props.navigation.navigate('HistoryTicketTrain')}>
                             <Text style={{ color: '#696969' }}>Terakhir dilihat</Text>
                         </Button>
                     </View>
