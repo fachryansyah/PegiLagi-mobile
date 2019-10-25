@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, FlatList, View, Image, Dimensions } from 'react-native'
+import { StyleSheet, FlatList, View, Image, Dimensions, RefreshControl } from 'react-native'
 import {
 	Container,
 	Header,
@@ -10,6 +10,7 @@ import {
 	Tab,
 	Tabs,
 	TabHeading,
+	Spinner,
 	Card,
 	Button
 } from 'native-base'
@@ -17,6 +18,8 @@ import Dash from 'react-native-dash'
 import { connect } from 'react-redux'
 import IoniconsIcon from 'react-native-vector-icons/Ionicons'
 import FontistoIcon from 'react-native-vector-icons/Fontisto'
+import Moment from 'moment'
+import Http from '../Helpers/Http'
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 
@@ -25,7 +28,7 @@ class OrderScreen extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			isLogin: false,
+			isLoading: true,
 			booking: [
 				{
 					order_no: 'ASJYR346J235GGH',
@@ -38,71 +41,159 @@ class OrderScreen extends Component {
 		}
 	}
 
+	componentDidMount(){
+		Moment.locale('id')
+		if (this.props.auth.isAuthenticate) {
+			this.getHistoryOrder()
+		}
+	}
+
+	async getHistoryOrder(){
+		
+		this.setState({
+			isLoading: true
+		})
+
+		await Http.get('/history')
+		.then((res) => {
+			console.log(res.data.data)
+			this.setState({
+				booking: res.data.data,
+				isLoading: false
+			})
+		})
+		.catch((err) => {
+			this.setState({
+				isLoading: false
+			})
+			console.log(err.message)
+		})
+	}
+
+	__renderStatus(status){
+		if (status == 1) {
+			return(
+				<>
+					<IoniconsIcon style={{
+						color: '#ffd500',
+						marginRight: 6,
+						alignSelf: 'center'
+					}} size={16} name='md-time' />
+					<Text style={{
+						color: '#ffd500',
+						fontSize: 13,
+						alignSelf: 'center'
+					}}>MENUNGGU PEMBAYARAN</Text>
+				</>
+			)
+		}else if (status == 2) {
+			return(
+				<>
+					<IoniconsIcon style={{
+						color: '#409636',
+						marginRight: 6,
+						alignSelf: 'center'
+					}} size={16} name='md-checkmark-circle-outline' />
+					<Text style={{
+						color: '#409636',
+						fontSize: 13,
+						alignSelf: 'center'
+					}}>DI BAYAR</Text>
+				</>
+			)
+		}else if (status == 3) {
+			return(
+				<>
+					<IoniconsIcon style={{
+						color: '#bf1717',
+						marginRight: 6,
+						alignSelf: 'center'
+					}} size={16} name='md-close-circle-outline' />
+					<Text style={{
+						color: '#bf1717',
+						fontSize: 13,
+						alignSelf: 'center'
+					}}>DI BATALKAN</Text>
+				</>
+			)
+		}
+	}
+
 	__renderLogin() {
-		return (
-			<FlatList
-				data={this.state.booking}
-				keyExtractor={(item) => item.id}
-				renderItem={({ item, key }) => (
-					<Card style={{ padding: 18 }} key={key}>
-						<View style={styles.displayRow}>
-							<View style={[styles.floatLeft, styles.displayRow]}>
-								<IoniconsIcon style={styles.iconStatus} size={16} name='md-time' />
-								<Text style={styles.textStatus}>MENUNGGU PEMBAYARAN</Text>
-							</View>
-							<View style={styles.floatRight}>
-								<Text style={styles.textTitleOrderNo}>Nomor Pesanan</Text>
-								<Text style={styles.textOrderNo}>{item.order_no}</Text>
-							</View>
-						</View>
-
-						<View style={[styles.displayRow, { marginTop: 12 }]}>
-							<View style={[styles.floatLeft, styles.displayRow]}>
-								<IoniconsIcon style={styles.iconDestination} size={30} name='ios-airplane' />
-								<Text style={styles.textLocation}>{item.from}</Text>
-								<FontistoIcon style={styles.iconArrow} name='arrow-right-l' size={16} />
-								<Text style={styles.textLocation}>{item.to}</Text>
-							</View>
-							<View style={[styles.floatRight, styles.displayRow]}>
-								<Text style={styles.textTransit}>Sekali jalan</Text>
-							</View>
-						</View>
-
-						<View style={[styles.displayRow, { marginTop: 12 }]}>
-							<View style={[styles.floatLeft, styles.displayRow]}>
-								<Text style={styles.textHint}>Berangkat</Text>
-							</View>
-							<View style={[styles.floatRight, styles.displayRow]}>
-								<Text style={styles.textHint}>Tiba</Text>
-							</View>
-						</View>
-
-						<View style={[styles.displayRow, { marginTop: 6 }]}>
-							<View style={[styles.floatLeft, styles.displayRow]}>
-								<Text style={styles.textDate}>{item.departure_time}</Text>
-							</View>
+		if (this.state.isLoading) {
+			return(
+				<>
+					<Spinner color='#f97432' />
+				</>
+			)
+		}else{
+			return(
+				<FlatList
+					data={this.state.booking}
+					keyExtractor={(item) => item.id}
+					refreshControl={
+                        <RefreshControl refreshing={this.state.isLoading} onRefresh={() => this.getHistoryOrder()} />
+                    }
+					renderItem={({ item, key }) => (
+						<Card style={{ padding: 18 }} key={key}>
 							<View style={styles.displayRow}>
-								<Text>CGK</Text>
-								<FontistoIcon style={styles.iconArrowCity} name='arrow-right' size={12} />
-								<Text>JOG</Text>
+								<View style={[styles.floatLeft, styles.displayRow]}>
+									{this.__renderStatus(item.status)}
+								</View>
+								<View style={styles.floatRight}>
+									<Text style={styles.textTitleOrderNo}>Nomor Pesanan</Text>
+									<Text style={styles.textOrderNo}>{item.order_no}</Text>
+								</View>
 							</View>
-							<View style={[styles.floatRight, styles.displayRow]}>
-								<Text style={styles.textDate}>{item.arrived_time}</Text>
-							</View>
-						</View>
 
-						<View style={[styles.displayRow, { marginTop: 6 }]}>
-							<View style={[styles.floatLeft, styles.displayRow]}>
-								<Text style={styles.textDate}>19:00</Text>
+							<View style={[styles.displayRow, { marginTop: 12 }]}>
+								<View style={[styles.floatLeft, styles.displayRow]}>
+									<IoniconsIcon style={styles.iconDestination} size={30} name='ios-airplane' />
+									<Text style={styles.textLocation}>{item.planeTicket.fromAirport.city}</Text>
+									<FontistoIcon style={styles.iconArrow} name='arrow-right-l' size={16} />
+									<Text style={styles.textLocation}>{item.planeTicket.toAirport.city}</Text>
+								</View>
+								<View style={[styles.floatRight, styles.displayRow]}>
+									<Text style={styles.textTransit}>Sekali jalan</Text>
+								</View>
 							</View>
-							<View style={[styles.floatRight, styles.displayRow]}>
-								<Text style={styles.textDate}>20:00</Text>
+
+							<View style={[styles.displayRow, { marginTop: 12 }]}>
+								<View style={[styles.floatLeft, styles.displayRow]}>
+									<Text style={styles.textHint}>Berangkat</Text>
+								</View>
+								<View style={[styles.floatRight, styles.displayRow]}>
+									<Text style={styles.textHint}>Tiba</Text>
+								</View>
 							</View>
-						</View>
-					</Card>
-				)}
-			/>
-		)
+
+							<View style={[styles.displayRow, { marginTop: 6 }]}>
+								<View style={[styles.floatLeft, styles.displayRow]}>
+									<Text style={styles.textDate}>{Moment(item.departure_time).format('D MMMM YYYY')}</Text>
+								</View>
+								<View style={styles.displayRow}>
+									<Text>{item.planeTicket.fromAirport.code_name}</Text>
+									<FontistoIcon style={styles.iconArrowCity} name='arrow-right' size={12} />
+									<Text>{item.planeTicket.toAirport.code_name}</Text>
+								</View>
+								<View style={[styles.floatRight, styles.displayRow]}>
+									<Text style={styles.textDate}>{Moment(item.arrived_time).format('D MMMM YYYY')}</Text>
+								</View>
+							</View>
+
+							<View style={[styles.displayRow, { marginTop: 6 }]}>
+								<View style={[styles.floatLeft, styles.displayRow]}>
+									<Text style={styles.textDate}>{Moment(item.departure_time).format('LT')}</Text>
+								</View>
+								<View style={[styles.floatRight, styles.displayRow]}>
+									<Text style={styles.textDate}>{Moment(item.arrived_time).format('LT')}</Text>
+								</View>
+							</View>
+						</Card>
+					)}
+				/>
+			)
+		}
 	}
 
 	__renderNotLogin() {
@@ -135,40 +226,9 @@ class OrderScreen extends Component {
 				</Header>
 
 				<Content>
-					<Tabs
-						tabBarUnderlineStyle={{ backgroundColor: '#ff9800', height: 2 }}
-					>
-						<Tab
-							heading={
-								<TabHeading style={{ backgroundColor: '#fff' }}>
-									<Text style={{ color: '#000' }}>Aktif</Text>
-								</TabHeading>
-							}
-							activeTabStyle
-						>
-							<View style={{ height: SCREEN_HEIGHT * 0.71 }}>
-								{this.props.auth.isAuthenticate ? this.__renderLogin() : this.__renderNotLogin()}
-							</View>
-						</Tab>
-						<Tab
-							heading={
-								<TabHeading style={{ backgroundColor: '#fff' }}>
-									<Text style={{ color: '#000' }}>Selesai</Text>
-								</TabHeading>
-							}
-						>
-							<Text>Selesai</Text>
-						</Tab>
-						<Tab
-							heading={
-								<TabHeading style={{ backgroundColor: '#fff' }}>
-									<Text style={{ color: '#000' }}>Dibatalkan</Text>
-								</TabHeading>
-							}
-						>
-							<Text>Dibatalkan</Text>
-						</Tab>
-					</Tabs>
+					<View style={{ height: SCREEN_HEIGHT * 0.71 }}>
+						{this.props.auth.isAuthenticate ? this.__renderLogin() : this.__renderNotLogin()}
+					</View>
 				</Content>
 			</Container>
 		);
